@@ -8,7 +8,6 @@ package DLauncher.Logger;
 
 
 /**
- *
  * @author damian
  */
 public class Console extends javax.swing.JFrame {
