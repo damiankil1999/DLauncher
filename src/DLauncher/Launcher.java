@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  */
 public class Launcher extends javax.swing.JFrame {
 
-   Information Information = new Information();
+   Information information = new Information();
 
    /**
     * Creates new form Launcher
@@ -26,9 +26,8 @@ public class Launcher extends javax.swing.JFrame {
       initComponents();
 
       try {
-         setTitle("DLauncher - " + Information.getVersion());
-         setIconImage(getToolkit().getImage(getClass().getResource("/Images/download.jpg")));
-         jEditorPane1.setPage(Information.getNewsLink());
+         setTitle("DLauncher - " + information.getVersion());
+         jEditorPane1.setPage(information.getNewsLink());
       } catch (IOException ex) {
          Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "", ex);
       }
@@ -44,8 +43,7 @@ public class Launcher extends javax.swing.JFrame {
       jTabbedPane1 = new javax.swing.JTabbedPane();
       jScrollPane1 = new javax.swing.JScrollPane();
       jEditorPane1 = new javax.swing.JEditorPane();
-      jTabbedPane2 = new javax.swing.JTabbedPane();
-      jTabbedPane3 = new javax.swing.JTabbedPane();
+      jPanel2 = new javax.swing.JPanel();
       jPanel1 = new javax.swing.JPanel();
       jComboBox1 = new javax.swing.JComboBox();
       jButton1 = new javax.swing.JButton();
@@ -72,13 +70,20 @@ public class Launcher extends javax.swing.JFrame {
 
       jTabbedPane1.addTab("News", null, jScrollPane1, "Display The News");
 
-      jTabbedPane2.setBackground(new java.awt.Color(102, 107, 111));
-      jTabbedPane2.setOpaque(true);
-      jTabbedPane1.addTab("Pack's", null, jTabbedPane2, "Display The Arivable ModPack's");
+      jPanel2.setBackground(new java.awt.Color(102, 107, 111));
 
-      jTabbedPane3.setBackground(new java.awt.Color(102, 107, 111));
-      jTabbedPane3.setOpaque(true);
-      jTabbedPane1.addTab("tab3", jTabbedPane3);
+      javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+      jPanel2.setLayout(jPanel2Layout);
+      jPanel2Layout.setHorizontalGroup(
+         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGap(0, 509, Short.MAX_VALUE)
+      );
+      jPanel2Layout.setVerticalGroup(
+         jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGap(0, 375, Short.MAX_VALUE)
+      );
+
+      jTabbedPane1.addTab("Packs", null, jPanel2, "Display The Arivable ModPack's");
 
       jPanel1.setBackground(new java.awt.Color(45, 46, 49));
 
@@ -93,7 +98,7 @@ public class Launcher extends javax.swing.JFrame {
       jPanel1Layout.setHorizontalGroup(
          jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-            .addContainerGap(384, Short.MAX_VALUE)
+            .addContainerGap(405, Short.MAX_VALUE)
             .addComponent(jButton1)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,16 +120,16 @@ public class Launcher extends javax.swing.JFrame {
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addGap(0, 336, Short.MAX_VALUE)
+            .addGap(0, 373, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-               .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+               .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                .addGap(39, 39, 39)))
       );
 
@@ -164,12 +169,14 @@ public class Launcher extends javax.swing.JFrame {
          @Override
          public void run() {
             Console console = new Console();
+            console.information.setIcon(console);
             console.setVisible(true);
             Logger.getLogger(Launcher.class.getName()).addHandler(new TextAreaHandler(console.jTextArea1));
             Logger.getLogger(Launcher.class.getName()).log(Level.INFO, "Started!");
-            
-            new Launcher().setVisible(true);
 
+            Launcher launcher = new Launcher();
+            launcher.information.setIcon(launcher);
+            launcher.setVisible(true);
          }
       });
    }
@@ -179,9 +186,8 @@ public class Launcher extends javax.swing.JFrame {
    private javax.swing.JComboBox jComboBox1;
    private javax.swing.JEditorPane jEditorPane1;
    private javax.swing.JPanel jPanel1;
+   private javax.swing.JPanel jPanel2;
    private javax.swing.JScrollPane jScrollPane1;
    private javax.swing.JTabbedPane jTabbedPane1;
-   private javax.swing.JTabbedPane jTabbedPane2;
-   private javax.swing.JTabbedPane jTabbedPane3;
    // End of variables declaration//GEN-END:variables
 }

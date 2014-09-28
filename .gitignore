@@ -16,3 +16,13 @@ nb-configuration.xml
 *.ear
 *.rar
 *.zip
+
+# Windows (Enoing) Secret Files #
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msm
+*.msp
+*.lnk
