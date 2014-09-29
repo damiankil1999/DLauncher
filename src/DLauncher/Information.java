@@ -1,5 +1,7 @@
 package DLauncher;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -12,14 +14,14 @@ public class Information {
    private final String defaultIcon = "/Images/test.png";
 
    public Information() {
-
+      Logger.getGlobal().log(Level.INFO, "Launcher Version " + version + " Loaded!");
    }
 
    public String getVersion() {
       return version;
    }
 
-   public String getNewsLink() {
+   public String getNewsLink(){
       return newsLink;
    }
 

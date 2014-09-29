@@ -27,10 +27,14 @@ public class Launcher extends javax.swing.JFrame {
 
       try {
          setTitle("DLauncher - " + information.getVersion());
-         jEditorPane1.setPage(information.getNewsLink());
+         Logger.getGlobal().log(Level.INFO, "Connecting To New's-Page Site..");
+         this.jEditorPane1.setPage(information.getNewsLink());
+         Logger.getGlobal().log(Level.INFO, "Succesfull!");
       } catch (IOException ex) {
-         Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "", ex);
+         Logger.getGlobal().log(Level.WARNING, "FAILED:");
+         Logger.getGlobal().log(Level.WARNING, "", ex);
       }
+
    }
 
    /**
@@ -120,7 +124,7 @@ public class Launcher extends javax.swing.JFrame {
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +133,7 @@ public class Launcher extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-               .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+               .addComponent(jTabbedPane1)
                .addGap(39, 39, 39)))
       );
 
@@ -171,10 +175,16 @@ public class Launcher extends javax.swing.JFrame {
             Console console = new Console();
             console.information.setIcon(console);
             console.setVisible(true);
-            Logger.getLogger(Launcher.class.getName()).addHandler(new TextAreaHandler(console.jTextArea1));
-            Logger.getLogger(Launcher.class.getName()).log(Level.INFO, "Started!");
 
+            Logger.getGlobal().addHandler(new TextAreaHandler(console.jTextArea1));
+            Logger.getLogger(Launcher.class.getName()).setUseParentHandlers(true);
+            Logger.getLogger(Launcher.class.getName()).addHandler(new TextAreaHandler(console.jTextArea1));
+            Logger.getGlobal().log(Level.INFO, "Started Logging..");
+            
             Launcher launcher = new Launcher();
+            
+            Logger.getGlobal().log(Level.INFO, "Launcher visable: True");
+            
             launcher.information.setIcon(launcher);
             launcher.setVisible(true);
          }

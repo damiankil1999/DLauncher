@@ -6,12 +6,15 @@
 
 package DLauncher.Logger;
 
+import DLauncher.Information;
+
 
 /**
  * @author damian
  */
 public class Console extends javax.swing.JFrame {
-
+   
+   public Information information = new Information();
    /**
     * Creates new form Console_Frame
     */
@@ -33,7 +36,7 @@ public class Console extends javax.swing.JFrame {
       jTextArea1 = new javax.swing.JTextArea();
       jButton2 = new javax.swing.JButton();
 
-      setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+      setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
       setTitle("DLauncher - OH NO SOMTHING WENT WRONG!");
 
       jButton1.setText("Clear");
@@ -45,8 +48,8 @@ public class Console extends javax.swing.JFrame {
 
       jTextArea1.setEditable(false);
       jTextArea1.setColumns(20);
-      jTextArea1.setLineWrap(true);
-      jTextArea1.setRows(5);
+      jTextArea1.setRows(22);
+      jTextArea1.setTabSize(4);
       jScrollPane2.setViewportView(jTextArea1);
 
       jButton2.setText("Close");
@@ -125,7 +128,8 @@ public class Console extends javax.swing.JFrame {
       java.awt.EventQueue.invokeLater(new Runnable() {
          @Override
          public void run() {
-            new Console().setVisible(true);
+            Console console = new Console();
+            console.setVisible(true);
          }
       });
    }
