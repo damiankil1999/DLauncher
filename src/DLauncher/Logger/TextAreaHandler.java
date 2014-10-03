@@ -10,19 +10,26 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 public class TextAreaHandler extends java.util.logging.Handler {
-
-   public TextAreaHandler(JTextArea textArea) {
+   
+   private final Console console;
+   
+   public TextAreaHandler(JTextArea textArea, Console console) {
       this.textArea = textArea;
+      this.console = console;
+      
       this.setFormatter(new Formatter() {
          @Override
          public String format(LogRecord record) {
           StringBuilder sb = new StringBuilder();
-          SimpleDateFormat dt1 = new SimpleDateFormat("[HH:mm:ss] ");
-          sb.append(dt1.format(new Date())).append('[').append(record.getLevel().getLocalizedName()).append("] ")
+          SimpleDateFormat dt1 = new SimpleDateFormat("[HH:mm:ss ");
+          sb.append(dt1.format(new Date())).append(record.getLevel().getLocalizedName()).append("]: ")
                   .append(formatMessage(record));
           Throwable exception = record.getThrown();
           if (exception != null) {
            try {
+              if(!(TextAreaHandler.this.console.isVisible())){
+                 TextAreaHandler.this.console.setVisible(true);
+              }
             StringWriter sw = new StringWriter();
             try (PrintWriter pw = new PrintWriter(sw)) {
              exception.printStackTrace(pw);

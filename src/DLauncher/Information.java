@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 public class Information {
 
    private final String version = "Alpha 0.0.0.1";
-   private final String newsLink = "http://www.minecraft.net/";
+   private final String newsLink = "http://www.missnecraft.net/";
    private final String defaultIcon = "/Images/test.png";
 
    public Information() {

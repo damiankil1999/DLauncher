@@ -10,6 +10,7 @@ import DLauncher.Logger.TextAreaHandler;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JScrollBar;
 
 /**
  *
@@ -45,75 +46,268 @@ public class Launcher extends javax.swing.JFrame {
    private void initComponents() {
 
       jTabbedPane1 = new javax.swing.JTabbedPane();
-      jScrollPane1 = new javax.swing.JScrollPane();
+      jPanel4 = new javax.swing.JPanel();
+      jScrollPane2 = new javax.swing.JScrollPane();
       jEditorPane1 = new javax.swing.JEditorPane();
       jPanel2 = new javax.swing.JPanel();
+      jTextField1 = new javax.swing.JTextField();
+      jButton2 = new javax.swing.JButton();
+      jScrollPane3 = new javax.swing.JScrollPane();
+      jPanel3 = new javax.swing.JPanel();
+      Vanilla = new javax.swing.JPanel();
+      jLabel3 = new javax.swing.JLabel();
+      jLabel2 = new javax.swing.JLabel();
+      jButton3 = new javax.swing.JButton();
+      jButton4 = new javax.swing.JButton();
+      jButton5 = new javax.swing.JButton();
+      jSeparator1 = new javax.swing.JSeparator();
+      jPanel5 = new javax.swing.JPanel();
+      jLabel5 = new javax.swing.JLabel();
+      jLabel4 = new javax.swing.JLabel();
+      jTextField2 = new javax.swing.JTextField();
+      jLabel6 = new javax.swing.JLabel();
+      jPasswordField1 = new javax.swing.JPasswordField();
+      jButton6 = new javax.swing.JButton();
       jPanel1 = new javax.swing.JPanel();
-      jComboBox1 = new javax.swing.JComboBox();
       jButton1 = new javax.swing.JButton();
+      jLabel1 = new javax.swing.JLabel();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
       setTitle("DLauncher - OH NO SOMETHING WENT WRONG!");
       setForeground(java.awt.Color.lightGray);
 
       jTabbedPane1.setBackground(new java.awt.Color(68, 69, 70));
-      jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.RIGHT);
+      jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
       jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
       jTabbedPane1.setFont(new java.awt.Font("Britannic Bold", 1, 36)); // NOI18N
       jTabbedPane1.setOpaque(true);
 
-      jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-      jScrollPane1.setAutoscrolls(true);
+      jPanel4.setBackground(new java.awt.Color(102, 107, 111));
 
       jEditorPane1.setEditable(false);
-      jEditorPane1.setBackground(new java.awt.Color(102, 107, 111));
-      jEditorPane1.setContentType("text"); // NOI18N
-      jEditorPane1.setText("ERROR:\n\nCan't connect to the site\n\nPossibly Resons:\n - No Internet Connection,\n - No Stabel Internet Connection,\n - Site Offline,\n - Running DLauncher wrong,\n\nRegards, DLauncher");
-      jEditorPane1.setOpaque(false);
-      jScrollPane1.setViewportView(jEditorPane1);
+      jEditorPane1.setText("ERROR:\n\nCan't connect to the site\n\n" + 
+         "Sorry for the inconvenience");
+      jScrollPane2.setViewportView(jEditorPane1);
 
-      jTabbedPane1.addTab("News", null, jScrollPane1, "Display The News");
+      javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+      jPanel4.setLayout(jPanel4Layout);
+      jPanel4Layout.setHorizontalGroup(
+         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+      );
+      jPanel4Layout.setVerticalGroup(
+         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
+      );
+
+      jTabbedPane1.addTab("News", jPanel4);
 
       jPanel2.setBackground(new java.awt.Color(102, 107, 111));
+
+      jTextField1.setText("Search");
+      jTextField1.setToolTipText("Search for a ModPack");
+
+      jButton2.setText("Go!");
+
+      jScrollPane3.setBackground(java.awt.Color.lightGray);
+      jScrollPane3.setAutoscrolls(true);
+      jScrollPane3.getVerticalScrollBar().setUnitIncrement(16);
+
+      jPanel3.setBackground(java.awt.Color.gray);
+
+      Vanilla.setInheritsPopupMenu(true);
+      Vanilla.setOpaque(false);
+
+      jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/TEMP_Vanilla.png"))); // NOI18N
+
+      jLabel2.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+      jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+      jLabel2.setText("Minecraft Vanilla 1.7.2+");
+
+      jButton3.setText("Add");
+
+      jButton4.setText("Site");
+
+      jButton5.setText("Donate to ModPack Author");
+
+      javax.swing.GroupLayout VanillaLayout = new javax.swing.GroupLayout(Vanilla);
+      Vanilla.setLayout(VanillaLayout);
+      VanillaLayout.setHorizontalGroup(
+         VanillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(VanillaLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(VanillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addGroup(VanillaLayout.createSequentialGroup()
+                  .addComponent(jLabel3)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addComponent(jLabel2)
+                  .addGap(0, 0, Short.MAX_VALUE))
+               .addGroup(VanillaLayout.createSequentialGroup()
+                  .addComponent(jButton3)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                  .addComponent(jButton5)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addComponent(jButton4)))
+            .addContainerGap())
+      );
+      VanillaLayout.setVerticalGroup(
+         VanillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(VanillaLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(VanillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(jLabel2)
+               .addComponent(jLabel3))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+            .addGroup(VanillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jButton3)
+               .addComponent(jButton4)
+               .addComponent(jButton5))
+            .addContainerGap())
+      );
+
+      javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+      jPanel3.setLayout(jPanel3Layout);
+      jPanel3Layout.setHorizontalGroup(
+         jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addComponent(Vanilla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+         .addGroup(jPanel3Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
+            .addContainerGap())
+      );
+      jPanel3Layout.setVerticalGroup(
+         jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(jPanel3Layout.createSequentialGroup()
+            .addComponent(Vanilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addContainerGap(374, Short.MAX_VALUE))
+      );
+
+      jScrollPane3.setViewportView(jPanel3);
 
       javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
       jPanel2.setLayout(jPanel2Layout);
       jPanel2Layout.setHorizontalGroup(
          jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 509, Short.MAX_VALUE)
+         .addGroup(jPanel2Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jButton2)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+         .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
       );
       jPanel2Layout.setVerticalGroup(
          jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGap(0, 375, Short.MAX_VALUE)
+         .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jButton2))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE))
       );
 
       jTabbedPane1.addTab("Packs", null, jPanel2, "Display The Arivable ModPack's");
 
-      jPanel1.setBackground(new java.awt.Color(45, 46, 49));
+      jPanel5.setBackground(new java.awt.Color(102, 107, 111));
 
-      jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select An Acount" }));
+      jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+      jLabel5.setText("Please log in with your premium minecraft account");
+
+      jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+      jLabel4.setText("E-Mail/username:");
+
+      jTextField2.setBackground(new java.awt.Color(115, 112, 112));
+      jTextField2.setForeground(new java.awt.Color(195, 192, 192));
+
+      jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+      jLabel6.setText("Password:");
+
+      jPasswordField1.setBackground(new java.awt.Color(115, 112, 112));
+      jPasswordField1.setForeground(new java.awt.Color(195, 192, 192));
+
+      jButton6.setBackground(new java.awt.Color(133, 135, 139));
+      jButton6.setText("Login");
+      jButton6.setToolTipText("Click here to login");
+
+      javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+      jPanel5.setLayout(jPanel5Layout);
+      jPanel5Layout.setHorizontalGroup(
+         jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+               .addGroup(jPanel5Layout.createSequentialGroup()
+                  .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                  .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                     .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                     .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING)))
+               .addGroup(jPanel5Layout.createSequentialGroup()
+                  .addGap(0, 89, Short.MAX_VALUE)
+                  .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                     .addComponent(jLabel5))))
+            .addGap(91, 91, 91))
+      );
+      jPanel5Layout.setVerticalGroup(
+         jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGap(59, 59, 59)
+            .addComponent(jLabel5)
+            .addGap(18, 18, 18)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel4))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+               .addComponent(jLabel6))
+            .addGap(85, 85, 85)
+            .addComponent(jButton6)
+            .addContainerGap())
+      );
+
+      jTabbedPane1.addTab("Acount", jPanel5);
+
+      jPanel1.setBackground(new java.awt.Color(45, 46, 49));
 
       jButton1.setText("Status");
       jButton1.setToolTipText("Display The Current Status Of Minecraft");
       jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+      jButton1.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jButton1ActionPerformed(evt);
+         }
+      });
+
+      jLabel1.setForeground(new java.awt.Color(0, 204, 255));
+      jLabel1.setText("Welcome %name%");
 
       javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
       jPanel1.setLayout(jPanel1Layout);
       jPanel1Layout.setHorizontalGroup(
          jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-            .addContainerGap(405, Short.MAX_VALUE)
+         .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(15, 15, 15)
             .addComponent(jButton1)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 406, Short.MAX_VALUE)
+            .addComponent(jLabel1)
             .addContainerGap())
       );
       jPanel1Layout.setVerticalGroup(
          jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(jPanel1Layout.createSequentialGroup()
             .addGap(7, 7, 7)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-               .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(jLabel1)
                .addComponent(jButton1))
             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
@@ -129,17 +323,21 @@ public class Launcher extends javax.swing.JFrame {
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addGap(0, 373, Short.MAX_VALUE)
+            .addGap(0, 371, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                .addComponent(jTabbedPane1)
-               .addGap(39, 39, 39)))
+               .addGap(40, 40, 40)))
       );
 
       pack();
       setLocationRelativeTo(null);
    }// </editor-fold>//GEN-END:initComponents
+
+   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      //TODO: STILL NEED TO IMPLENT CODE FOR THIS BUTTON!
+   }//GEN-LAST:event_jButton1ActionPerformed
 
    /**
     * @param args the command line arguments
@@ -176,9 +374,9 @@ public class Launcher extends javax.swing.JFrame {
             console.information.setIcon(console);
             console.setVisible(true);
 
-            Logger.getGlobal().addHandler(new TextAreaHandler(console.jTextArea1));
+            Logger.getGlobal().addHandler(new TextAreaHandler(console.jTextArea1, console));
             Logger.getLogger(Launcher.class.getName()).setUseParentHandlers(true);
-            Logger.getLogger(Launcher.class.getName()).addHandler(new TextAreaHandler(console.jTextArea1));
+            Logger.getLogger(Launcher.class.getName()).addHandler(new TextAreaHandler(console.jTextArea1, console));
             Logger.getGlobal().log(Level.INFO, "Started Logging..");
             
             Launcher launcher = new Launcher();
@@ -187,17 +385,38 @@ public class Launcher extends javax.swing.JFrame {
             
             launcher.information.setIcon(launcher);
             launcher.setVisible(true);
+            
+            
          }
       });
    }
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
+   private javax.swing.JPanel Vanilla;
    private javax.swing.JButton jButton1;
-   private javax.swing.JComboBox jComboBox1;
+   private javax.swing.JButton jButton2;
+   private javax.swing.JButton jButton3;
+   private javax.swing.JButton jButton4;
+   private javax.swing.JButton jButton5;
+   private javax.swing.JButton jButton6;
    private javax.swing.JEditorPane jEditorPane1;
+   private javax.swing.JLabel jLabel1;
+   private javax.swing.JLabel jLabel2;
+   private javax.swing.JLabel jLabel3;
+   private javax.swing.JLabel jLabel4;
+   private javax.swing.JLabel jLabel5;
+   private javax.swing.JLabel jLabel6;
    private javax.swing.JPanel jPanel1;
    private javax.swing.JPanel jPanel2;
-   private javax.swing.JScrollPane jScrollPane1;
+   private javax.swing.JPanel jPanel3;
+   private javax.swing.JPanel jPanel4;
+   private javax.swing.JPanel jPanel5;
+   private javax.swing.JPasswordField jPasswordField1;
+   private javax.swing.JScrollPane jScrollPane2;
+   private javax.swing.JScrollPane jScrollPane3;
+   private javax.swing.JSeparator jSeparator1;
    private javax.swing.JTabbedPane jTabbedPane1;
+   private javax.swing.JTextField jTextField1;
+   private javax.swing.JTextField jTextField2;
    // End of variables declaration//GEN-END:variables
 }
