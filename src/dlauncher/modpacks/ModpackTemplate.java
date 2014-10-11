@@ -30,6 +30,7 @@ public class ModpackTemplate extends javax.swing.JPanel {
       jLabel4 = new javax.swing.JLabel();
       jButton1 = new javax.swing.JButton();
       jLabel1 = new javax.swing.JLabel();
+      jButton2 = new javax.swing.JButton();
 
       setBackground(java.awt.Color.gray);
       setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -43,7 +44,10 @@ public class ModpackTemplate extends javax.swing.JPanel {
 
       jButton1.setText("Add");
 
-      jLabel1.setText("jLabel1");
+      jLabel1.setForeground(new java.awt.Color(241, 233, 233));
+      jLabel1.setText("Unknow Modpack Description");
+
+      jButton2.setText("jButton2");
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
       this.setLayout(layout);
@@ -57,9 +61,12 @@ public class ModpackTemplate extends javax.swing.JPanel {
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                      .addComponent(jLabel4)
-                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
-               .addComponent(jButton1))
-            .addContainerGap(19, Short.MAX_VALUE))
+                     .addComponent(jLabel1)))
+               .addGroup(layout.createSequentialGroup()
+                  .addComponent(jButton1)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                  .addComponent(jButton2)))
+            .addContainerGap(97, Short.MAX_VALUE))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -68,13 +75,15 @@ public class ModpackTemplate extends javax.swing.JPanel {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addGroup(layout.createSequentialGroup()
                   .addComponent(jLabel3)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addComponent(jButton1))
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                     .addComponent(jButton1)
+                     .addComponent(jButton2)))
                .addGroup(layout.createSequentialGroup()
                   .addComponent(jLabel4)
                   .addGap(18, 18, 18)
-                  .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addGap(0, 34, Short.MAX_VALUE)))
+                  .addComponent(jLabel1)
+                  .addGap(0, 0, Short.MAX_VALUE)))
             .addContainerGap())
       );
    }// </editor-fold>//GEN-END:initComponents
@@ -82,6 +91,7 @@ public class ModpackTemplate extends javax.swing.JPanel {
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton jButton1;
+   private javax.swing.JButton jButton2;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;

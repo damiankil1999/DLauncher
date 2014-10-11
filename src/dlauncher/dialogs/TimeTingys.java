@@ -51,6 +51,7 @@ public class TimeTingys {
    
    public void setup(){
       JPasswordField field = this.pfield;
+      field.setEchoChar(defaultchar);
       
       switch (getDate()) {
          case "25-12":

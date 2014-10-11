@@ -29,7 +29,7 @@ public class Launcher extends javax.swing.JFrame {
       initComponents();
 
       try {
-         setTitle("DLauncher™  - " + information.getVersion());
+         setTitle("DLauncher  - " + information.getVersion());
          Logger.getGlobal().log(Level.INFO, "Connecting To New's-Page Site..");
          this.jEditorPane1.setPage(information.getNewsLink());
          Logger.getGlobal().log(Level.INFO, "Succesfull!");
@@ -66,7 +66,6 @@ public class Launcher extends javax.swing.JFrame {
       jButton3 = new javax.swing.JButton();
       jButton4 = new javax.swing.JButton();
       jButton5 = new javax.swing.JButton();
-      jSeparator1 = new javax.swing.JSeparator();
       jPanel6 = new javax.swing.JPanel();
       jPanel5 = new javax.swing.JPanel();
       jLabel5 = new javax.swing.JLabel();
@@ -148,7 +147,7 @@ public class Launcher extends javax.swing.JFrame {
                   .addComponent(jLabel3)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                   .addComponent(jLabel2)
-                  .addGap(0, 0, Short.MAX_VALUE))
+                  .addGap(0, 95, Short.MAX_VALUE))
                .addGroup(VanillaLayout.createSequentialGroup()
                   .addComponent(jButton3)
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -164,7 +163,7 @@ public class Launcher extends javax.swing.JFrame {
             .addGroup(VanillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(jLabel2)
                .addComponent(jLabel3))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
             .addGroup(VanillaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                .addComponent(jButton3)
                .addComponent(jButton4)
@@ -177,18 +176,12 @@ public class Launcher extends javax.swing.JFrame {
       jPanel3Layout.setHorizontalGroup(
          jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addComponent(Vanilla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-         .addGroup(jPanel3Layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-            .addContainerGap())
       );
       jPanel3Layout.setVerticalGroup(
          jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(jPanel3Layout.createSequentialGroup()
             .addComponent(Vanilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(374, Short.MAX_VALUE))
+            .addGap(0, 466, Short.MAX_VALUE))
       );
 
       jScrollPane3.setViewportView(jPanel3);
@@ -438,7 +431,6 @@ public class Launcher extends javax.swing.JFrame {
    private static javax.swing.JPasswordField jPasswordField1;
    private javax.swing.JScrollPane jScrollPane2;
    private javax.swing.JScrollPane jScrollPane3;
-   private javax.swing.JSeparator jSeparator1;
    private javax.swing.JTabbedPane jTabbedPane1;
    private javax.swing.JTextField jTextField1;
    private javax.swing.JTextField jTextField2;
