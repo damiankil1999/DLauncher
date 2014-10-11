@@ -1,4 +1,4 @@
-package dlauncher;
+package dlauncher.launcher;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -9,8 +9,8 @@ import javax.swing.JFrame;
  */
 public class Information {
 
-   private final String version = "Alpha 0.0.0.1";
-   private final String newsLink = "http://www.missnecraft.net/";
+   private final String version = "0.0.0.1";
+   private final String newsLink = "http://dlauncher.byethost13.com/news.html";
    private final String defaultIcon = "/images/test.png";
 
    public Information() {
