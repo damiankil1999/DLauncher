@@ -5,7 +5,6 @@
  */
 package dlauncher.launcher;
 
-import dlauncher.launcher.Information;
 import dlauncher.dialogs.Login;
 import dlauncher.dialogs.TimeTingys;
 import dlauncher.logger.Console;
@@ -337,6 +336,7 @@ public class Launcher extends javax.swing.JFrame {
    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
       //login button
       login.setVisible(true);
+      
    }//GEN-LAST:event_jButton6ActionPerformed
 
    /**
