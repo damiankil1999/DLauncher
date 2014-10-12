@@ -1,8 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+ * http://creativecommons.org/licenses/by-sa/3.0/
+ * Authors: Damian Lamers, Fernando van Loenhout
  */
+
 package dlauncher.launcher;
 
 import dlauncher.dialogs.Login;
@@ -13,10 +14,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author damian
- */
+
 public class Launcher extends javax.swing.JFrame {
 
    Information information = new Information();
