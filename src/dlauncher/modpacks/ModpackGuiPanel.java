@@ -1,21 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package dlauncher.modpacks;
 
 /**
  *
  * @author damian
  */
-public class ModpackTemplate extends javax.swing.JPanel {
+public class ModpackGuiPanel extends javax.swing.JPanel {
 
-   /**
-    * Creates new form ModpackTemplate
-    */
-   public ModpackTemplate() {
+   public ModpackGuiPanel() {
       initComponents();
    }
 
@@ -31,6 +22,7 @@ public class ModpackTemplate extends javax.swing.JPanel {
       jButton1 = new javax.swing.JButton();
       jLabel1 = new javax.swing.JLabel();
       jButton2 = new javax.swing.JButton();
+      jButton3 = new javax.swing.JButton();
 
       setBackground(java.awt.Color.gray);
       setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -47,7 +39,9 @@ public class ModpackTemplate extends javax.swing.JPanel {
       jLabel1.setForeground(new java.awt.Color(241, 233, 233));
       jLabel1.setText("Unknow Modpack Description");
 
-      jButton2.setText("jButton2");
+      jButton2.setText("Donate");
+
+      jButton3.setText("Site");
 
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
       this.setLayout(layout);
@@ -64,9 +58,11 @@ public class ModpackTemplate extends javax.swing.JPanel {
                      .addComponent(jLabel1)))
                .addGroup(layout.createSequentialGroup()
                   .addComponent(jButton1)
-                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
                   .addComponent(jButton2)))
-            .addContainerGap(97, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jButton3)
+            .addContainerGap())
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,7 +74,8 @@ public class ModpackTemplate extends javax.swing.JPanel {
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                   .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                      .addComponent(jButton1)
-                     .addComponent(jButton2)))
+                     .addComponent(jButton2)
+                     .addComponent(jButton3)))
                .addGroup(layout.createSequentialGroup()
                   .addComponent(jLabel4)
                   .addGap(18, 18, 18)
@@ -92,6 +89,7 @@ public class ModpackTemplate extends javax.swing.JPanel {
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton jButton1;
    private javax.swing.JButton jButton2;
+   private javax.swing.JButton jButton3;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel3;
    private javax.swing.JLabel jLabel4;
