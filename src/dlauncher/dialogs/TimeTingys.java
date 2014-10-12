@@ -13,11 +13,14 @@ import javax.swing.JPasswordField;
  * @author damian
  */
 public class TimeTingys {
+
    private final JPasswordField pfield;
    //Password field:
-   private final char defaultchar = '\u220e'; // ∎
+   private final char defaultchar = '\u2022'; // •  
    private final char xmaschar1 = '\u2603'; // ☃
-   private final char xmaschar2 = '\u2603';
+   private final char xmaschar2 = '\u2746'; // ❆
+   private final char minecraftBD = '\u220e'; // ∎
+   
    //
 
    private String getDate() {
@@ -43,22 +46,24 @@ public class TimeTingys {
       String formattedTime = sdf.format(date);
       return formattedTime;
    }
-   
-   
+
    public TimeTingys(JPasswordField field) {
       this.pfield = field;
    }
-   
-   public void setup(){
+
+   public void setup() {
       JPasswordField field = this.pfield;
       field.setEchoChar(defaultchar);
-      
+
       switch (getDate()) {
          case "25-12":
             field.setEchoChar(xmaschar1);
             break;
          case "26-12":
             field.setEchoChar(xmaschar2);
+            break;
+         case "18-11":
+            field.setEchoChar(minecraftBD);
             break;
       }
    }

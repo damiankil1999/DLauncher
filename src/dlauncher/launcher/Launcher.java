@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dlauncher;
+package dlauncher.launcher;
 
 import dlauncher.dialogs.Login;
 import dlauncher.dialogs.TimeTingys;
@@ -27,7 +27,7 @@ public class Launcher extends javax.swing.JFrame {
     */
    public Launcher() {
       initComponents();
-
+      
       try {
          setTitle("DLauncher  - " + information.getVersion());
          Logger.getGlobal().log(Level.INFO, "Connecting To New's-Page Site..");
@@ -51,6 +51,8 @@ public class Launcher extends javax.swing.JFrame {
    private void initComponents() {
       java.awt.GridBagConstraints gridBagConstraints;
 
+      jPanel1 = new javax.swing.JPanel();
+      jLabel1 = new javax.swing.JLabel();
       jTabbedPane1 = new javax.swing.JTabbedPane();
       jPanel4 = new javax.swing.JPanel();
       jScrollPane2 = new javax.swing.JScrollPane();
@@ -74,13 +76,32 @@ public class Launcher extends javax.swing.JFrame {
       jLabel6 = new javax.swing.JLabel();
       jPasswordField1 = new javax.swing.JPasswordField();
       jButton6 = new javax.swing.JButton();
-      jPanel1 = new javax.swing.JPanel();
-      jButton1 = new javax.swing.JButton();
-      jLabel1 = new javax.swing.JLabel();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
       setTitle("DLauncher - OH NO SOMETHING WENT WRONG!");
       setForeground(java.awt.Color.lightGray);
+
+      jPanel1.setBackground(new java.awt.Color(45, 46, 49));
+
+      jLabel1.setForeground(new java.awt.Color(0, 204, 255));
+      jLabel1.setText("Please login in the Acount tab                                                                     ");
+
+      javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+      jPanel1.setLayout(jPanel1Layout);
+      jPanel1Layout.setHorizontalGroup(
+         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap(231, Short.MAX_VALUE)
+            .addComponent(jLabel1)
+            .addContainerGap())
+      );
+      jPanel1Layout.setVerticalGroup(
+         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+         .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(7, 7, 7)
+            .addComponent(jLabel1)
+            .addContainerGap(18, Short.MAX_VALUE))
+      );
 
       jTabbedPane1.setBackground(new java.awt.Color(68, 69, 70));
       jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
@@ -93,6 +114,7 @@ public class Launcher extends javax.swing.JFrame {
       jEditorPane1.setEditable(false);
       jEditorPane1.setText("ERROR:\n\nCan't connect to the site\n\n" + 
          "Sorry for the inconvenience");
+      jEditorPane1.setMargin(new java.awt.Insets(-11, -11, -11, -11));
       jScrollPane2.setViewportView(jEditorPane1);
 
       javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -229,7 +251,7 @@ public class Launcher extends javax.swing.JFrame {
 
       jPasswordField1.setBackground(new java.awt.Color(115, 112, 112));
       jPasswordField1.setForeground(new java.awt.Color(195, 192, 192));
-      jPasswordField1.setEchoChar('\u220e');
+      jPasswordField1.setEchoChar('?');
 
       jButton6.setBackground(new java.awt.Color(133, 135, 139));
       jButton6.setText("Login");
@@ -288,41 +310,6 @@ public class Launcher extends javax.swing.JFrame {
 
       jTabbedPane1.addTab("Acount", jPanel6);
 
-      jPanel1.setBackground(new java.awt.Color(45, 46, 49));
-
-      jButton1.setText("Status");
-      jButton1.setToolTipText("Display The Current Status Of Minecraft");
-      jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-      jButton1.addActionListener(new java.awt.event.ActionListener() {
-         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jButton1ActionPerformed(evt);
-         }
-      });
-
-      jLabel1.setForeground(new java.awt.Color(0, 204, 255));
-      jLabel1.setText("Welcome %name%");
-
-      javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-      jPanel1.setLayout(jPanel1Layout);
-      jPanel1Layout.setHorizontalGroup(
-         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGap(15, 15, 15)
-            .addComponent(jButton1)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 413, Short.MAX_VALUE)
-            .addComponent(jLabel1)
-            .addContainerGap())
-      );
-      jPanel1Layout.setVerticalGroup(
-         jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGap(7, 7, 7)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel1)
-               .addComponent(jButton1))
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-      );
-
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
       getContentPane().setLayout(layout);
       layout.setHorizontalGroup(
@@ -346,13 +333,10 @@ public class Launcher extends javax.swing.JFrame {
       setLocationRelativeTo(null);
    }// </editor-fold>//GEN-END:initComponents
 
-   private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      //TODO: STILL NEED TO IMPLENT CODE FOR THIS BUTTON!
-   }//GEN-LAST:event_jButton1ActionPerformed
-
    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
       //login button
       login.setVisible(true);
+      
    }//GEN-LAST:event_jButton6ActionPerformed
 
    /**
@@ -409,7 +393,6 @@ public class Launcher extends javax.swing.JFrame {
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JPanel Vanilla;
-   private javax.swing.JButton jButton1;
    private javax.swing.JButton jButton2;
    private javax.swing.JButton jButton3;
    private javax.swing.JButton jButton4;
@@ -423,7 +406,7 @@ public class Launcher extends javax.swing.JFrame {
    private javax.swing.JLabel jLabel5;
    private javax.swing.JLabel jLabel6;
    private javax.swing.JPanel jPanel1;
-   private javax.swing.JPanel jPanel2;
+   private static javax.swing.JPanel jPanel2;
    private javax.swing.JPanel jPanel3;
    private javax.swing.JPanel jPanel4;
    private javax.swing.JPanel jPanel5;

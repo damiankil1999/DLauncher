@@ -6,7 +6,7 @@
 
 package dlauncher.logger;
 
-import dlauncher.Information;
+import dlauncher.launcher.Information;
 
 
 /**
