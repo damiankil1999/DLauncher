@@ -137,6 +137,7 @@ public class Login extends javax.swing.JDialog {
          JSONObject response = new JSONObject(this.login_getResponse());
          this.AccesToken = response.getString("accessToken");
          this.ClientToken = response.getString("clientToken");
+         //TODO: Create more!
       } catch (IOException ex) {
          Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "", ex);
       }
