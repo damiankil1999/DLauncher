@@ -17,5 +17,9 @@ public interface ModPackVersion {
     List<ModPackDownload> getDownloadLocations();
 
     URL getChangeLog();
+    
+    long getReleaseDate();
+    
+    String getBranch();
 
 }

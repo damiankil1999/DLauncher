@@ -1,12 +1,14 @@
 package dlauncher.modpacks.packs;
 
+import java.util.List;
+
 /**
  *
  * @author Fernando
  */
 public interface UnresolvedModPack {
 
-    String getRequiredDependency();
+    List<String> getRequiredDependencies();
 
-    ModPack createModPack(ModPack dependency);
+    ModPack createModPack(List<ModPack> dependencies);
 }

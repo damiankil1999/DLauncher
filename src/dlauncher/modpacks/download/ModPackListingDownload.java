@@ -1,6 +1,5 @@
 package dlauncher.modpacks.download;
 
-import dlauncher.modpacks.packs.ModPack;
 import dlauncher.modpacks.packs.UnresolvedModPack;
 import java.io.IOException;
 import java.util.Collection;

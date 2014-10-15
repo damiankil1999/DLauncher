@@ -89,6 +89,7 @@ public class ModpackManager {
                         }
                     }
                 }
+                return null;
             }
 
             @Override

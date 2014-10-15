@@ -2,11 +2,12 @@ package dlauncher.modpacks.packs;
 
 import dlauncher.modpacks.download.DownloadLocation;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultModPack implements ModPack {
 
-    private final List<ModPackVersion> versions;
+    private final List<ModPackVersion> versions = new ArrayList<>();
 
     private final String name;
 
@@ -22,10 +23,9 @@ public class DefaultModPack implements ModPack {
 
     private final URL websiteURL;
 
-    public DefaultModPack(List<ModPackVersion> versions, String name,
+    public DefaultModPack(String name,
             List<String> authors, ModPack parent, String description,
             URL donateURL, DownloadLocation imageURL, URL websiteURL) {
-        this.versions = versions;
         this.name = name;
         this.authors = authors;
         this.parent = parent;
@@ -73,6 +73,10 @@ public class DefaultModPack implements ModPack {
     @Override
     public URL getWebsite() {
         return websiteURL;
+    }
+
+    public void addModPackVersion(ModPackVersion version) {
+        this.versions.add(version);
     }
 
 }
