@@ -1,5 +1,6 @@
 package dlauncher.modpacks;
 
+import dlauncher.cache.CacheManager;
 import dlauncher.modpacks.packs.ModPack;
 import dlauncher.modpacks.download.DownloadLocation;
 import java.io.ByteArrayOutputStream;
