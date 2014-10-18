@@ -3,6 +3,7 @@ package dlauncher.modpacks;
 import dlauncher.cache.CacheManager;
 import dlauncher.modpacks.packs.ModPack;
 import dlauncher.modpacks.download.DownloadLocation;
+import dlauncher.modpacks.download.ModPackListingDownload;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -19,12 +20,12 @@ import javax.swing.SwingWorker;
 
 public class ModpackManager {
 
-    private final List<DownloadLocation> dataSources;
+    private final List<ModPackListingDownload> dataSources;
     private boolean isRefreshing = false;
     private final Map<String, ModPack> allModPacks = new HashMap<>();
     private final CacheManager cache;
 
-    public ModpackManager(List<DownloadLocation> dataSources,
+    public ModpackManager(List<ModPackListingDownload> dataSources,
             CacheManager cache) {
         if (dataSources == null) {
             throw new IllegalArgumentException("datasources == null");
@@ -42,17 +43,19 @@ public class ModpackManager {
 
             @Override
             protected List<ModPack> doInBackground() throws Exception {
-                List<DownloadLocation> newSources = new LinkedList<>(dataSources);
+                List<ModPackListingDownload> newSources = new LinkedList<>(dataSources);
                 for (int attempts = 0; attempts < 10; attempts++) {
-                    Iterator<DownloadLocation> source = newSources.iterator();
+                    Iterator<ModPackListingDownload> source = newSources.iterator();
                     while (source.hasNext()) {
-                        DownloadLocation next = source.next();
+                        ModPackListingDownload next = source.next();
                         try {
-                            ByteArrayOutputStream in = new ByteArrayOutputStream();
-                            cache.downloadURL(next, in);
-                            byte[] data = in.toByteArray();
+                            byte[] data = cache.downloadURL(next);
+                            next.readModPacksFromResource(data);
+
                         } catch (IOException ex) {
-                            Logger.getGlobal().log(Level.WARNING, "Error downloading {0}: {1}", new Object[]{next.getURL(), ex.toString()});
+                            Logger.getGlobal().log(Level.WARNING,
+                                    "Error downloading {0}, attempt {2}: {1}",
+                                    new Object[]{next.getURL(), ex.toString(), attempts});
                         }
                     }
                 }
