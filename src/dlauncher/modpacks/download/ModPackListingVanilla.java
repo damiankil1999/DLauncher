@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -48,7 +49,7 @@ public class ModPackListingVanilla extends DefaultDownloadLocation
             }
 
             @Override
-            public ModPack createModPack(List<ModPack> dependencies) {
+            public ModPack createModPack(Map<String, ModPack> dependencies) {
                 return modpack;
             }
         };

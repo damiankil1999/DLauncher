@@ -3,12 +3,13 @@ package dlauncher.modpacks.packs;
 import dlauncher.modpacks.download.DownloadLocation;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 
 public interface ModPack {
 
     ModPack getParent();
 
-    List<ModPackVersion> getVersions();
+    Map<String, ModPackVersion> getVersions();
 
     String getName();
 

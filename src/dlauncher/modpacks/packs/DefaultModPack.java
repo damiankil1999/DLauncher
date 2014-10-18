@@ -2,12 +2,13 @@ package dlauncher.modpacks.packs;
 
 import dlauncher.modpacks.download.DownloadLocation;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DefaultModPack implements ModPack {
 
-    private final List<ModPackVersion> versions = new ArrayList<>();
+    private final Map<String, ModPackVersion> versions = new HashMap<>();
 
     private final String name;
 
@@ -41,7 +42,7 @@ public class DefaultModPack implements ModPack {
     }
 
     @Override
-    public List<ModPackVersion> getVersions() {
+    public Map<String, ModPackVersion> getVersions() {
         return versions;
     }
 
@@ -76,7 +77,7 @@ public class DefaultModPack implements ModPack {
     }
 
     public void addModPackVersion(ModPackVersion version) {
-        this.versions.add(version);
+        this.versions.put(version.getVersion(), version);
     }
 
 }
