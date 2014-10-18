@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface UnresolvedModPack {
 
-    List<String> getRequiredDependencies();
+    List<ModPackVersionDescription> getRequiredDependencies();
 
     ModPack createModPack(List<ModPack> dependencies);
 }

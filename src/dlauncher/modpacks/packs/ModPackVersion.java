@@ -4,13 +4,11 @@ import dlauncher.modpacks.download.ModPackDownload;
 import java.net.URL;
 import java.util.List;
 
-public interface ModPackVersion {
+public interface ModPackVersion extends ModPackVersionDescription {
 
     ModPack getMainInstance();
 
     ModPackVersion getParent();
-
-    String getVersion();
 
     long getInstalledSize();
 

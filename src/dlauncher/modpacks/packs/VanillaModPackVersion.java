@@ -79,4 +79,9 @@ public class VanillaModPackVersion implements ModPackVersion {
     public String getBranch() {
         return branch;
     }
+
+    @Override
+    public String getModPackName() {
+        return this.getMainInstance().getName();
+    }
 }

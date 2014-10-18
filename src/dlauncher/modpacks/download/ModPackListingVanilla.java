@@ -3,6 +3,7 @@ package dlauncher.modpacks.download;
 import dlauncher.modpacks.packs.DefaultModPack;
 import dlauncher.modpacks.packs.ModPack;
 import dlauncher.modpacks.packs.ModPackVersion;
+import dlauncher.modpacks.packs.ModPackVersionDescription;
 import dlauncher.modpacks.packs.UnresolvedModPack;
 import dlauncher.modpacks.packs.VanillaModPackVersion;
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class ModPackListingVanilla extends DefaultDownloadLocation
         UnresolvedModPack unresolved = new UnresolvedModPack() {
 
             @Override
-            public List<String> getRequiredDependencies() {
+            public List<ModPackVersionDescription> getRequiredDependencies() {
                 return Collections.emptyList();
             }
 
