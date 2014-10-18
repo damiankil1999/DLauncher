@@ -49,42 +49,8 @@ public class ModpackManager {
                         DownloadLocation next = source.next();
                         try {
                             ByteArrayOutputStream in = new ByteArrayOutputStream();
-                            cache.downloadURL(next.getURL(), in);
+                            cache.downloadURL(next, in);
                             byte[] data = in.toByteArray();
-                            if (next.getSize() != -1 && next.getSize() != data.length) {
-                                throw new IOException("Resource length mismatch! "
-                                        + "Excepted length " + next.getSize()
-                                        + ", but got " + data.length);
-                            }
-                            boolean containsHashes = false;
-                            {
-                                if (next.getMD5() != null) {
-                                    containsHashes = true;
-                                    MessageDigest md = MessageDigest.getInstance("MD5");
-                                    byte[] md5 = md.digest(data);
-                                    if (!Arrays.equals(md5, next.getMD5())) {
-                                        throw new IOException("Resource MD5 mismatch! "
-                                                + "Excepted hash " + Arrays.toString(next.getMD5())
-                                                + ", but got " + Arrays.toString(md5));
-                                    }
-                                }
-                                if (next.getSHA512() != null) {
-                                    containsHashes = true;
-                                    MessageDigest md = MessageDigest.getInstance("SHA-512");
-                                    byte[] sha512 = md.digest(data);
-                                    if (!Arrays.equals(sha512, next.getSHA512())) {
-                                        throw new IOException("Resource SHA512 mismatch! "
-                                                + "Excepted hash " + Arrays.toString(next.getSHA512())
-                                                + ", but got " + Arrays.toString(sha512));
-                                    }
-                                }
-                            }
-                            if (!containsHashes) {
-                                Logger.getGlobal().log(Level.WARNING, "Resource {0} doesn''t contain any hashes, file may not be downloaded correctly "
-                                        + "(remember that attaching hashes to a file enabled caching)", next.getURL());
-                            } else {
-                                cache.addToCache(next.getURL(), data);
-                            }
                         } catch (IOException ex) {
                             Logger.getGlobal().log(Level.WARNING, "Error downloading {0}: {1}", new Object[]{next.getURL(), ex.toString()});
                         }
