@@ -1,24 +1,32 @@
+/*
+ * This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+ * http://creativecommons.org/licenses/by-sa/3.0/
+ * Authors: Damian Lamers, Fernando van Loenhout
+ */
 package dlauncher.dialogs;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONObject;
 
-/**
- * @author damian
- */
 public class Login extends javax.swing.JDialog {
-   
+   private String ClientToken;
+   private String AccesToken;
    private URL url;
+
    /**
     * Creates new form Login1
+    *
     * @param parent
     * @param modal
     */
@@ -91,7 +99,7 @@ public class Login extends javax.swing.JDialog {
     */
    public static void main(String args[]) {
       /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+      //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
        * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
        */
@@ -105,7 +113,7 @@ public class Login extends javax.swing.JDialog {
       } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
          java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
       }
-        //</editor-fold>
+      //</editor-fold>
 
       /* Create and display the dialog */
       java.awt.EventQueue.invokeLater(new Runnable() {
@@ -123,11 +131,25 @@ public class Login extends javax.swing.JDialog {
       });
    }
    
-   private void login(String UserName, String Password) {
+   public void login_start(String uname, String pword){
+      this.login_write(uname, pword);
       try {
-         this.url = new URL("http://authserver.mojang.com/authenticate");
+         JSONObject response = new JSONObject(this.login_getResponse());
+         this.AccesToken = response.getString("accessToken");
+         this.ClientToken = response.getString("clientToken");
+         //TODO: Create more!
+      } catch (IOException ex) {
+         Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "", ex);
+      }
+   }
 
-         final URLConnection con = this.url.openConnection();
+   private void login_write(String UserName, String Password) {
+      Logger.getGlobal().info("Started login process");
+      Logger.getGlobal().info("Writing login data..");
+      try {
+         url = new URL("http://authserver.mojang.com/authenticate");
+
+         final URLConnection con = url.openConnection();
          con.setConnectTimeout(5000);
          con.setReadTimeout(5000);
          con.setDoOutput(true);
@@ -145,19 +167,38 @@ public class Login extends javax.swing.JDialog {
                     + "\n"
                     + "  \"password\": \"" + Password + "\",\n"
                     + "}");
-            
+
             writer.close();
          }
-
-         try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
-            final String response = reader.readLine();
-
-            reader.close();
-         }
+         Logger.getGlobal().info("Succesful written login data");
       } catch (MalformedURLException ex) {
+         Logger.getGlobal().warning("Failed Writing login data,");
          Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "", ex);
       } catch (IOException ex) {
+         Logger.getGlobal().warning("Failed Writing login data,");
          Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "", ex);
+      }
+   }
+
+   private String login_getResponse() throws IOException {
+      URL website = new URL("http://authserver.mojang.com/authenticate");
+      final HttpURLConnection connection = (HttpURLConnection) website.openConnection();
+      connection.setReadTimeout(3000);
+      try (Closeable c = new Closeable() {
+         @Override
+         public void close() throws IOException {
+            connection.disconnect();
+         }
+      }) {
+         StringBuilder response;
+         try (BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            response = new StringBuilder();
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+               response.append(inputLine);
+            }
+         }
+         return response.toString();
       }
    }
 
@@ -166,4 +207,5 @@ public class Login extends javax.swing.JDialog {
    private javax.swing.JPanel jPanel1;
    private javax.swing.JProgressBar jProgressBar1;
    // End of variables declaration//GEN-END:variables
+
 }

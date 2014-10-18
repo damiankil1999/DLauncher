@@ -1,12 +1,15 @@
+/*
+ * This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+ * http://creativecommons.org/licenses/by-sa/3.0/
+ * Authors: Damian Lamers, Fernando van Loenhout
+ */
+
 package dlauncher.launcher;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 
-/**
- * @author damian
- */
 public class Information {
 
    private final String version = "0.0.0.1";

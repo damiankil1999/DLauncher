@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
+ * http://creativecommons.org/licenses/by-sa/3.0/
+ * Authors: Damian Lamers, Fernando van Loenhout
  */
 package dlauncher.launcher;
 
@@ -13,21 +13,17 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author damian
- */
 public class Launcher extends javax.swing.JFrame {
 
    Information information = new Information();
-   Login login = new Login(this,true);
+   Login login = new Login(this, true);
 
    /**
     * Creates new form Launcher
     */
    public Launcher() {
       initComponents();
-      
+
       try {
          setTitle("DLauncher  - " + information.getVersion());
          Logger.getGlobal().log(Level.INFO, "Connecting To New's-Page Site..");
@@ -37,7 +33,7 @@ public class Launcher extends javax.swing.JFrame {
          Logger.getGlobal().log(Level.WARNING, "FAILED:");
          Logger.getGlobal().log(Level.WARNING, "", ex);
       }
-      
+
       TimeTingys timet = new TimeTingys(jPasswordField1);
       timet.setup();
 
@@ -49,7 +45,6 @@ public class Launcher extends javax.swing.JFrame {
    @SuppressWarnings("unchecked")
    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
    private void initComponents() {
-      java.awt.GridBagConstraints gridBagConstraints;
 
       jPanel1 = new javax.swing.JPanel();
       jLabel1 = new javax.swing.JLabel();
@@ -76,6 +71,8 @@ public class Launcher extends javax.swing.JFrame {
       jLabel6 = new javax.swing.JLabel();
       jPasswordField1 = new javax.swing.JPasswordField();
       jButton6 = new javax.swing.JButton();
+      jButton1 = new javax.swing.JButton();
+      jCheckBox1 = new javax.swing.JCheckBox();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
       setTitle("DLauncher - OH NO SOMETHING WENT WRONG!");
@@ -245,6 +242,11 @@ public class Launcher extends javax.swing.JFrame {
 
       jTextField2.setBackground(new java.awt.Color(115, 112, 112));
       jTextField2.setForeground(new java.awt.Color(195, 192, 192));
+      jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+         public void keyTyped(java.awt.event.KeyEvent evt) {
+            jTextField2KeyTyped(evt);
+         }
+      });
 
       jLabel6.setForeground(new java.awt.Color(255, 255, 255));
       jLabel6.setText("Password:");
@@ -252,44 +254,62 @@ public class Launcher extends javax.swing.JFrame {
       jPasswordField1.setBackground(new java.awt.Color(115, 112, 112));
       jPasswordField1.setForeground(new java.awt.Color(195, 192, 192));
       jPasswordField1.setEchoChar('?');
+      jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+         public void keyTyped(java.awt.event.KeyEvent evt) {
+            jPasswordField1KeyTyped(evt);
+         }
+      });
 
       jButton6.setBackground(new java.awt.Color(133, 135, 139));
       jButton6.setText("Login");
       jButton6.setToolTipText("Click here to login");
+      jButton6.setEnabled(false);
       jButton6.addActionListener(new java.awt.event.ActionListener() {
          public void actionPerformed(java.awt.event.ActionEvent evt) {
             jButton6ActionPerformed(evt);
          }
       });
 
+      jButton1.setBackground(new java.awt.Color(133, 135, 139));
+      jButton1.setText("Logout");
+      jButton1.setEnabled(false);
+
+      jCheckBox1.setText("Stay logged in.");
+      jCheckBox1.setEnabled(false);
+
       javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
       jPanel5.setLayout(jPanel5Layout);
       jPanel5Layout.setHorizontalGroup(
          jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGap(34, 34, 34)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                .addGroup(jPanel5Layout.createSequentialGroup()
-                  .addGap(32, 35, Short.MAX_VALUE)
                   .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                      .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
                      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)))
                   .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                  .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                     .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                     .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING)))
-               .addGroup(jPanel5Layout.createSequentialGroup()
-                  .addGap(0, 92, Short.MAX_VALUE)
                   .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                     .addComponent(jLabel5))))
-            .addGap(91, 91, 91))
+                     .addComponent(jTextField2)
+                     .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+               .addGroup(jPanel5Layout.createSequentialGroup()
+                  .addGap(57, 57, 57)
+                  .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                     .addComponent(jLabel5)
+                     .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jCheckBox1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+            .addGap(92, 92, 92))
       );
       jPanel5Layout.setVerticalGroup(
          jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-         .addGroup(jPanel5Layout.createSequentialGroup()
-            .addGap(59, 59, 59)
+         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGap(34, 34, 34)
             .addComponent(jLabel5)
             .addGap(18, 18, 18)
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -298,15 +318,15 @@ public class Launcher extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(91, 91, 91)
-            .addComponent(jButton6)
-            .addGap(104, 104, 104))
+            .addGap(51, 51, 51)
+            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+               .addComponent(jButton6)
+               .addComponent(jButton1)
+               .addComponent(jCheckBox1))
+            .addGap(31, 31, 31))
       );
 
-      gridBagConstraints = new java.awt.GridBagConstraints();
-      gridBagConstraints.gridx = 0;
-      gridBagConstraints.gridy = 0;
-      jPanel6.add(jPanel5, gridBagConstraints);
+      jPanel6.add(jPanel5, new java.awt.GridBagConstraints());
 
       jTabbedPane1.addTab("Acount", jPanel6);
 
@@ -336,8 +356,32 @@ public class Launcher extends javax.swing.JFrame {
    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
       //login button
       login.setVisible(true);
-      
+
    }//GEN-LAST:event_jButton6ActionPerformed
+
+   private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+      if (jTextField2.getText().isEmpty()) {
+         jButton6.setEnabled(false);
+      } else {
+         if (jPasswordField1.getPassword().length != 0) {
+            jButton6.setEnabled(true);
+         } else {
+            jButton6.setEnabled(false);
+         }
+      }
+   }//GEN-LAST:event_jTextField2KeyTyped
+
+   private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
+      if (jPasswordField1.getPassword().length == 0) {
+         jButton6.setEnabled(false);
+      }else{
+         if(!(jTextField2.getText().isEmpty())){
+            jButton6.setEnabled(true);
+         }else{
+            jButton6.setEnabled(false);
+         }
+      }
+   }//GEN-LAST:event_jPasswordField1KeyTyped
 
    /**
     * @param args the command line arguments
@@ -378,26 +422,27 @@ public class Launcher extends javax.swing.JFrame {
             Logger.getLogger(Launcher.class.getName()).setUseParentHandlers(true);
             Logger.getLogger(Launcher.class.getName()).addHandler(new TextAreaHandler(console.jTextArea1, console));
             Logger.getGlobal().log(Level.INFO, "Started Logging..");
-            
+
             Launcher launcher = new Launcher();
-            
+
             Logger.getGlobal().log(Level.INFO, "Launcher visable: True");
-            
+
             launcher.information.setIcon(launcher);
             launcher.setVisible(true);
-            
-            
+
          }
       });
    }
 
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JPanel Vanilla;
+   private javax.swing.JButton jButton1;
    private javax.swing.JButton jButton2;
    private javax.swing.JButton jButton3;
    private javax.swing.JButton jButton4;
    private javax.swing.JButton jButton5;
    private javax.swing.JButton jButton6;
+   private javax.swing.JCheckBox jCheckBox1;
    private javax.swing.JEditorPane jEditorPane1;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
