@@ -52,6 +52,11 @@ public class ModPackListingVanilla extends DefaultDownloadLocation
             public ModPack createModPack(Map<String, ModPack> dependencies) {
                 return modpack;
             }
+
+            @Override
+            public String getName() {
+                return modpack.getName();
+            }
         };
         JSONArray versions = json.getJSONArray("versions");
         for (int i = 0; i < versions.length(); i++)

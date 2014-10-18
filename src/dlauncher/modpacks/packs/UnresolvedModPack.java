@@ -12,4 +12,6 @@ public interface UnresolvedModPack {
     List<ModPackVersionDescription> getRequiredDependencies();
 
     ModPack createModPack(Map<String, ModPack> dependencies);
+    
+    String getName();
 }
