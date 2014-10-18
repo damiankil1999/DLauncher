@@ -11,4 +11,6 @@ public interface DownloadLocation {
     byte[] getMD5();
 
     byte[] getSHA512();
+    
+    int getCachePriority();
 }
