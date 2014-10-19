@@ -84,7 +84,6 @@ public class ModpackManager {
                     this.publish(new ModPackListingUpdatedEvent(modpacks.size(),
                             null, last));
                 }
-                Logger.getGlobal().info("Loading: " + modpacks);
                 int resolved;
                 Iterator<UnresolvedModPack> m;
                 ModPack mod;
@@ -122,8 +121,8 @@ public class ModpackManager {
                         resolved++;
                     }
                     Logger.getGlobal().log(Level.INFO, "Resolved {0} "
-                            + "modpacks: {1}",
-                            new Object[]{resolved, resolvedPacks});
+                            + "modpacks",
+                            new Object[]{resolved});
                     this.publish(new ModPackReadyEvent(resolvedPacks));
                 } while (resolved > 0 && (!modpacks.isEmpty()));
                 if (!modpacks.isEmpty()) {
