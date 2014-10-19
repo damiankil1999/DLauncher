@@ -17,11 +17,13 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Login extends javax.swing.JDialog {
    private String ClientToken;
    private String AccesToken;
+   private JSONArray sss;
    private URL url;
 
    /**
@@ -137,7 +139,7 @@ public class Login extends javax.swing.JDialog {
          JSONObject response = new JSONObject(this.login_getResponse());
          this.AccesToken = response.getString("accessToken");
          this.ClientToken = response.getString("clientToken");
-         //TODO: Create more!
+         
       } catch (IOException ex) {
          Logger.getLogger(Login.class.getName()).log(Level.SEVERE, "", ex);
       }
