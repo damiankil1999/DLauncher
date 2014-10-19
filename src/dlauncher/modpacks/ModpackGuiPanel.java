@@ -18,6 +18,7 @@ public class ModpackGuiPanel extends javax.swing.JPanel {
     public ModpackGuiPanel(ModPack modpack, CacheManager cache) {
         this();
         URL url;
+        this.nameLabel.setText(modpack.getName());
         this.authorLabel.setText("Authors: " + modpack.getAuthors().toString());
         this.descriptionLabel.setText(modpack.getDescription());
         url = modpack.getDonateURL();
