@@ -27,12 +27,12 @@ public class ModPackListingVanilla extends DefaultDownloadLocation
         implements ModPackListingDownload {
 
     public ModPackListingVanilla(URL url) {
-        super(url);
+        super(url, 10);
     }
 
     public ModPackListingVanilla(URL url, long size, byte[] md5,
             byte[] sha512) {
-        super(url, size, md5, sha512);
+        super(url, size, md5, sha512, 10);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ModPackListingVanilla extends DefaultDownloadLocation
                 "This is the vanilla minecraft",
                 null, new DefaultDownloadLocation(
                         this.getClass().getResource("/images/TEMP_Vanilla.png")
-                ), null);
+                ), new URL("https://minecraft.net/"));
         UnresolvedModPack unresolved = new UnresolvedModPack() {
 
             @Override

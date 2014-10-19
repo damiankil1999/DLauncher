@@ -24,7 +24,7 @@ public class VanillaModPackVersion implements ModPackVersion {
     private final long releaseDate;
     private final List<ModPackDownload> downloads;
     private static final SimpleDateFormat dateFormat
-            = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
 
     public VanillaModPackVersion(JSONObject jsonObject, ModPack main) {
         this.main = main;
