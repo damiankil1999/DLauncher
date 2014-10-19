@@ -7,18 +7,18 @@ package dlauncher.modpacks;
 
 import dlauncher.cache.CacheManager;
 import dlauncher.modpacks.packs.ModPack;
-import dlauncher.modpacks.download.DownloadLocation;
+import dlauncher.modpacks.packs.ModPackVersionDescription;
+import dlauncher.modpacks.packs.UnresolvedModPack;
 import dlauncher.modpacks.download.ModPackListingDownload;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingWorker;
@@ -29,47 +29,119 @@ public class ModpackManager {
     private boolean isRefreshing = false;
     private final Map<String, ModPack> allModPacks = new HashMap<>();
     private final CacheManager cache;
+    private final ModPackListNoticer eventReciever;
 
     public ModpackManager(List<ModPackListingDownload> dataSources,
-            CacheManager cache) {
+            CacheManager cache, ModPackListNoticer parentEventReciever) {
         if (dataSources == null) {
             throw new IllegalArgumentException("datasources == null");
         }
         this.dataSources = dataSources;
         this.cache = cache;
+        this.eventReciever = parentEventReciever;
     }
 
-    public void refreshModPackListing(final ModPackListNoticer eventReciever) {
+    public void refreshModPackListing() {
         if (isRefreshing == true) {
-            throw new IllegalStateException("Downloading of modpack listing already started");
+            throw new IllegalStateException("Downloading of modpack listing "
+                    + "already started");
         }
         isRefreshing = true;
-        new SwingWorker<List<ModPack>, ModPackUpdateEvent>() {
+        allModPacks.clear();
+        new SwingWorker<Map<String, ModPack>, ModPackUpdateEvent>() {
 
             @Override
-            protected List<ModPack> doInBackground() throws Exception {
-                List<ModPackListingDownload> newSources = new LinkedList<>(dataSources);
+            protected Map<String, ModPack> doInBackground() {
+                List<ModPackListingDownload> newSources
+                        = new LinkedList<>(dataSources);
+                List<UnresolvedModPack> modpacks = new LinkedList<>();
                 for (int attempts = 0; attempts < 10; attempts++) {
-                    Iterator<ModPackListingDownload> source = newSources.iterator();
+                    Iterator<ModPackListingDownload> source
+                            = newSources.iterator();
+                    ModPackListingDownload last = null;
                     while (source.hasNext()) {
                         ModPackListingDownload next = source.next();
+                        this.publish(
+                                new ModPackListingUpdatedEvent(modpacks.size(),
+                                        next, last));
                         try {
                             byte[] data = cache.downloadURL(next);
-                            next.readModPacksFromResource(data);
-
+                            Collection<? extends UnresolvedModPack> get
+                                    = next.readModPacksFromResource(data);
+                            modpacks.addAll(get);
+                            Logger.getGlobal().log(Level.INFO,
+                                    "Correctly downloaded {0}, attempt {1}",
+                                    new Object[]{next.getURL(), attempts});
                         } catch (IOException ex) {
                             Logger.getGlobal().log(Level.WARNING,
                                     "Error downloading {0}, attempt {2}: {1}",
-                                    new Object[]{next.getURL(), ex.toString(), attempts});
+                                    new Object[]{next.getURL(), ex.toString(),
+                                        attempts});
                         }
+                        last = next;
                     }
+                    this.publish(new ModPackListingUpdatedEvent(modpacks.size(),
+                            null, last));
                 }
-                return null;
+                int resolved;
+                Iterator<UnresolvedModPack> m;
+                ModPack mod;
+                Map<String, ModPack> resolvedModpacks = new HashMap<>();
+                do {
+                    List<ModPack> resolvedPacks = new ArrayList<>();
+                    resolved = 0;
+                    m = modpacks.iterator();
+                    detectModpack:
+                    while (m.hasNext()) {
+                        UnresolvedModPack next = m.next();
+                        for (ModPackVersionDescription desc
+                                : next.getRequiredDependencies()) {
+                            if ((mod = resolvedModpacks.get(
+                                    desc.getModPackName())) != null) {
+                                if (mod.getVersions()
+                                        .containsKey(desc.getVersion())) {
+                                    continue;
+                                }
+                            }
+                            continue detectModpack;
+                        }
+                        mod = next.createModPack(allModPacks);
+                        if (mod == null) {
+                            Logger.getGlobal().log(Level.WARNING,
+                                    "Mod {0} doesn''t give a valid modpack "
+                                    + "after creating. Technical data: {1}",
+                                    new Object[]{
+                                        next.getName(), next.toString()});
+                        } else {
+                            resolvedModpacks.put(mod.getName(), mod);
+                        }
+                        m.remove();
+                        resolved++;
+                    }
+                    Logger.getGlobal().log(Level.FINE, "Resolved {0} "
+                            + "modpacks: {1}",
+                            new Object[]{resolved, resolvedPacks});
+                    this.publish(new ModPackReadyEvent(resolvedPacks));
+                } while (resolved > 0 && (!modpacks.isEmpty()));
+                if (!modpacks.isEmpty()) {
+                    Logger.getGlobal().log(Level.WARNING,
+                            "Failed resolving {0}, missing depencencies!",
+                            new Object[]{modpacks});
+                }
+                return resolvedModpacks;
             }
 
             @Override
             protected void done() {
-                this.publish(new AllReadyEvent(null));
+                try {
+                    isRefreshing = false;
+                    ModpackManager.this.allModPacks.putAll(this.get());
+                    this.publish(new AllReadyEvent(this.get().values()));
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                } catch (ExecutionException ex) {
+                    Logger.getGlobal().log(Level.SEVERE, null, ex);
+                }
             }
 
             @Override
@@ -82,30 +154,20 @@ public class ModpackManager {
         };
     }
 
+    public ModPack getModPack(String key) {
+        return allModPacks.get(key);
+    }
+
     private interface ModPackUpdateEvent {
 
         public void callEvent(ModPackListNoticer eventReciever);
     }
 
-    private class ModPackListingRecievedEvent implements ModPackUpdateEvent {
-
-        private final DownloadLocation finishedURL;
-
-        public ModPackListingRecievedEvent(DownloadLocation finishedURL) {
-            this.finishedURL = finishedURL;
-        }
-
-        @Override
-        public void callEvent(ModPackListNoticer eventReciever) {
-            eventReciever.modPackListingRecieved(finishedURL);
-        }
-    }
-
     private class ModPackReadyEvent implements ModPackUpdateEvent {
 
-        private final ModPack newModPack;
+        private final Collection<ModPack> newModPack;
 
-        public ModPackReadyEvent(ModPack newModPack) {
+        public ModPackReadyEvent(Collection<ModPack> newModPack) {
             this.newModPack = newModPack;
         }
 
@@ -118,23 +180,20 @@ public class ModpackManager {
     private class ModPackListingUpdatedEvent implements ModPackUpdateEvent {
 
         private final int totalModPacks;
-        private final int downloadedModPacks;
-        private final int failedModPacks;
-        private final boolean stillListingModPacks;
+        private final ModPackListingDownload currentPage;
+        private final ModPackListingDownload nextPage;
 
         public ModPackListingUpdatedEvent(int totalModPacks,
-                int downloadedModPacks, int failedModPacks,
-                boolean stillListingModPacks) {
+                ModPackListingDownload currentPage, ModPackListingDownload nextPage) {
             this.totalModPacks = totalModPacks;
-            this.downloadedModPacks = downloadedModPacks;
-            this.failedModPacks = failedModPacks;
-            this.stillListingModPacks = stillListingModPacks;
+            this.currentPage = currentPage;
+            this.nextPage = nextPage;
         }
 
         @Override
         public void callEvent(ModPackListNoticer eventReciever) {
             eventReciever.modPackListingUpdated(totalModPacks,
-                    downloadedModPacks, failedModPacks, stillListingModPacks);
+                    currentPage, nextPage);
         }
     }
 
@@ -154,14 +213,31 @@ public class ModpackManager {
 
     public interface ModPackListNoticer {
 
-        public void modPackListingRecieved(DownloadLocation finishedURL);
+        /**
+         * This method is called when a stage of modpack processing is complete.
+         * A modpack stage is defined as a processing cycle of resolving any
+         * dependencies this list of modpacks need
+         *
+         * @param newModPacks Any new resolved modpacks at the end of the stage
+         */
+        public void modPackReady(Collection<? extends ModPack> newModPacks);
 
-        public void modPackReady(ModPack newModPack);
-
+        /**
+         * Update a url listing that has been completed
+         *
+         * @param totalModPacks Total number of raw modpacks so far
+         * @param currentPage Currently executing url, or null at the start
+         * @param nextPage Url of next page listing, or null at the end
+         */
         public void modPackListingUpdated(int totalModPacks,
-                int downloadedModPacks, int failedModPacks,
-                boolean stillListingModPacks);
+                ModPackListingDownload currentPage, ModPackListingDownload nextPage);
 
+        /**
+         * Called when all unresolved modpacks are converted to fully working
+         * modpacks. This is called af the end of every modlist refresh cycle.
+         *
+         * @param modpacks
+         */
         public void allReady(Collection<ModPack> modpacks);
     }
 }
