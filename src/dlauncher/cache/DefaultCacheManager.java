@@ -6,6 +6,8 @@
 package dlauncher.cache;
 
 import dlauncher.modpacks.download.DownloadLocation;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,20 +20,26 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 public class DefaultCacheManager implements CacheManager {
 
     private final List<CacheStorage> caches;
+    private final ExecutorService labelLoadPool;
 
     public DefaultCacheManager(List<CacheStorage> caches,
             ExecutorService labelLoadPool) {
         if (caches == null) {
             throw new IllegalArgumentException("caches == null");
         }
-        if (labelLoadPool == null)
+        if (labelLoadPool == null) {
             throw new IllegalArgumentException("labelLoadPool == null");
+        }
         this.caches = caches;
+        this.labelLoadPool = labelLoadPool;
     }
 
     @Override
@@ -157,8 +165,49 @@ public class DefaultCacheManager implements CacheManager {
     }
 
     @Override
-    public void lazyLoadImageToLabel(DownloadLocation url, JLabel target, int heigth, int width, boolean mayResize) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void lazyLoadImageToLabel(final DownloadLocation url,
+            final JLabel target, final int heigth, final int width,
+            final boolean mayResize) {
+        BufferedImage placeHolder = new BufferedImage(width, heigth,
+                BufferedImage.TYPE_INT_ARGB);
+        target.setIcon(new ImageIcon(placeHolder));
+        this.labelLoadPool.submit(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    BufferedImage img = ImageIO.read(new ByteArrayInputStream(
+                            DefaultCacheManager.this.downloadURL0(url)));
+                    if ((img.getWidth() != width || img.getHeight() != heigth)
+                            && !mayResize) {
+                        Logger.getGlobal().log(Level.WARNING,
+                                "Unable to load {0} because of disabled "
+                                + "resizing", url);
+                        return;
+                    }
+                    if ((img.getWidth() != width
+                            || img.getHeight() != heigth)) {
+                        BufferedImage tmp = new BufferedImage(width, heigth,
+                                BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D g = tmp.createGraphics();
+                        g.drawImage(img, 0, 0, width, heigth, null);
+                        g.dispose();
+                        img = tmp;
+                    }
+                    final BufferedImage image = img;
+                    SwingUtilities.invokeLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            target.setIcon(new ImageIcon(image));
+                        }
+                    });
+                } catch (IOException ex) {
+                    Logger.getGlobal().log(Level.WARNING,
+                            "Unable to load " + url, ex);
+                }
+            }
+        });
     }
 
 }
