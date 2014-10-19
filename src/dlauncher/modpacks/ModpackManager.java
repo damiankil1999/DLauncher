@@ -24,13 +24,13 @@ import java.util.logging.Logger;
 import javax.swing.SwingWorker;
 
 public class ModpackManager {
-
+    
     private final List<ModPackListingDownload> dataSources;
     private boolean isRefreshing = false;
     private final Map<String, ModPack> allModPacks = new HashMap<>();
     private final CacheManager cache;
     private final ModPackListNoticer eventReciever;
-
+    
     public ModpackManager(List<ModPackListingDownload> dataSources,
             CacheManager cache, ModPackListNoticer parentEventReciever) {
         if (dataSources == null) {
@@ -40,7 +40,7 @@ public class ModpackManager {
         this.cache = cache;
         this.eventReciever = parentEventReciever;
     }
-
+    
     public void refreshModPackListing() {
         if (isRefreshing == true) {
             throw new IllegalStateException("Downloading of modpack listing "
@@ -49,7 +49,7 @@ public class ModpackManager {
         isRefreshing = true;
         allModPacks.clear();
         new SwingWorker<Map<String, ModPack>, ModPackUpdateEvent>() {
-
+            
             @Override
             protected Map<String, ModPack> doInBackground() {
                 List<ModPackListingDownload> newSources
@@ -72,6 +72,7 @@ public class ModpackManager {
                             Logger.getGlobal().log(Level.INFO,
                                     "Correctly downloaded {0}, attempt {1}",
                                     new Object[]{next.getURL(), attempts});
+                            source.remove();
                         } catch (IOException ex) {
                             Logger.getGlobal().log(Level.WARNING,
                                     "Error downloading {0}, attempt {2}: {1}",
@@ -108,19 +109,20 @@ public class ModpackManager {
                         mod = next.createModPack(allModPacks);
                         if (mod == null) {
                             Logger.getGlobal().log(Level.WARNING,
-                                    "Mod {0} doesn''t give a valid modpack "
+                                    "Mod {0} doesn't give a valid modpack "
                                     + "after creating. Technical data: {1}",
                                     new Object[]{
                                         next.getName(), next.toString()});
                         } else {
                             resolvedModpacks.put(mod.getName(), mod);
+                            resolvedPacks.add(mod);
                         }
                         m.remove();
                         resolved++;
                     }
-                    Logger.getGlobal().log(Level.FINE, "Resolved {0} "
-                            + "modpacks: {1}",
-                            new Object[]{resolved, resolvedPacks});
+                    Logger.getGlobal().log(Level.INFO, "Resolved {0} "
+                            + "modpacks",
+                            new Object[]{resolved});
                     this.publish(new ModPackReadyEvent(resolvedPacks));
                 } while (resolved > 0 && (!modpacks.isEmpty()));
                 if (!modpacks.isEmpty()) {
@@ -130,7 +132,7 @@ public class ModpackManager {
                 }
                 return resolvedModpacks;
             }
-
+            
             @Override
             protected void done() {
                 try {
@@ -143,74 +145,74 @@ public class ModpackManager {
                     Logger.getGlobal().log(Level.SEVERE, null, ex);
                 }
             }
-
+            
             @Override
             protected void process(List<ModPackUpdateEvent> chunks) {
                 for (ModPackUpdateEvent evt : chunks) {
                     evt.callEvent(eventReciever);
                 }
             }
-
-        };
+            
+        }.execute();
     }
-
+    
     public ModPack getModPack(String key) {
         return allModPacks.get(key);
     }
-
+    
     private interface ModPackUpdateEvent {
-
+        
         public void callEvent(ModPackListNoticer eventReciever);
     }
-
+    
     private class ModPackReadyEvent implements ModPackUpdateEvent {
-
+        
         private final Collection<ModPack> newModPack;
-
+        
         public ModPackReadyEvent(Collection<ModPack> newModPack) {
             this.newModPack = newModPack;
         }
-
+        
         @Override
         public void callEvent(ModPackListNoticer eventReciever) {
             eventReciever.modPackReady(newModPack);
         }
     }
-
+    
     private class ModPackListingUpdatedEvent implements ModPackUpdateEvent {
-
+        
         private final int totalModPacks;
         private final ModPackListingDownload currentPage;
         private final ModPackListingDownload nextPage;
-
+        
         public ModPackListingUpdatedEvent(int totalModPacks,
                 ModPackListingDownload currentPage, ModPackListingDownload nextPage) {
             this.totalModPacks = totalModPacks;
             this.currentPage = currentPage;
             this.nextPage = nextPage;
         }
-
+        
         @Override
         public void callEvent(ModPackListNoticer eventReciever) {
             eventReciever.modPackListingUpdated(totalModPacks,
                     currentPage, nextPage);
         }
     }
-
+    
     private class AllReadyEvent implements ModPackUpdateEvent {
-
+        
         private final Collection<ModPack> modpacks;
-
+        
         public AllReadyEvent(Collection<ModPack> modpacks) {
             this.modpacks = modpacks;
         }
-
+        
         @Override
         public void callEvent(ModPackListNoticer eventReciever) {
             eventReciever.allReady(modpacks);
         }
     }
-
+    
     public interface ModPackListNoticer {
 
         /**

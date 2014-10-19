@@ -5,6 +5,7 @@
  */
 package dlauncher.modpacks;
 
+import dlauncher.cache.CacheManager;
 import dlauncher.modpacks.packs.ModPack;
 import java.awt.Desktop;
 import java.io.IOException;
@@ -14,7 +15,7 @@ import javax.swing.JOptionPane;
 
 public class ModpackGuiPanel extends javax.swing.JPanel {
 
-    public ModpackGuiPanel(ModPack modpack) {
+    public ModpackGuiPanel(ModPack modpack, CacheManager cache) {
         this();
         URL url;
         this.authorLabel.setText("Authors: " + modpack.getAuthors().toString());
@@ -31,6 +32,7 @@ public class ModpackGuiPanel extends javax.swing.JPanel {
         } else {
             this.websiteButton.setEnabled(false);
         }
+        cache.lazyLoadImageToLabel(modpack.getImage(), iconLabel, 64, 128, false);
     }
     
     public ModpackGuiPanel() {
@@ -56,7 +58,6 @@ public class ModpackGuiPanel extends javax.swing.JPanel {
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Unknow_Modpack_Image.png"))); // NOI18N
-        iconLabel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         nameLabel.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         nameLabel.setForeground(new java.awt.Color(255, 255, 255));
@@ -115,9 +116,9 @@ public class ModpackGuiPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(iconLabel)
+                        .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(authorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                        .addComponent(authorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nameLabel)
                         .addGap(18, 18, 18)
