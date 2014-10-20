@@ -6,6 +6,7 @@
 package dlauncher.modpacks.download;
 
 import java.net.URL;
+import java.util.Objects;
 
 public class DefaultDownloadLocation implements DownloadLocation {
 
@@ -62,6 +63,28 @@ public class DefaultDownloadLocation implements DownloadLocation {
     @Override
     public int getCachePriority() {
         return cachePriority;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.url);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DefaultDownloadLocation other = (DefaultDownloadLocation) obj;
+        if (!Objects.equals(this.url, other.url)) {
+            return false;
+        }
+        return true;
     }
 
 }
