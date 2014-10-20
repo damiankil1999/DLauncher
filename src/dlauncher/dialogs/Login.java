@@ -17,13 +17,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Login extends javax.swing.JDialog {
    private String ClientToken;
    private String AccesToken;
-   private JSONArray sss;
    private URL url;
 
    /**
