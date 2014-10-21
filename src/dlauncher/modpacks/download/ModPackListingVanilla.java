@@ -49,7 +49,8 @@ public class ModPackListingVanilla extends DefaultDownloadLocation
         UnresolvedModPack unresolved = new UnresolvedModPack() {
 
             @Override
-            public Collection<? extends ModPackVersionDescription> getRequiredDependencies() {
+            public Collection<? extends ModPackVersionDescription>
+                    getRequiredDependencies() {
                 return Collections.emptyList();
             }
 
