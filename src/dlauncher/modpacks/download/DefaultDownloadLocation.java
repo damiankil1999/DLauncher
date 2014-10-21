@@ -5,13 +5,16 @@
  */
 package dlauncher.modpacks.download;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DefaultDownloadLocation implements DownloadLocation {
 
     public static final int DEFAULT_CACHE_PRIORITY = 1;
-    
+
     private final URL url;
     private final long size;
     private final byte[] md5;
@@ -21,7 +24,7 @@ public class DefaultDownloadLocation implements DownloadLocation {
     public DefaultDownloadLocation(URL url, int priority) {
         this(url, -1, null, null, priority);
     }
-    
+
     public DefaultDownloadLocation(URL url) {
         this(url, -1, null, null);
     }
@@ -87,4 +90,40 @@ public class DefaultDownloadLocation implements DownloadLocation {
         return true;
     }
 
+    public static DownloadLocation valueOf(JSONObject obj)
+            throws MalformedURLException, JSONException {
+        byte[] md5 = null;
+        byte[] sha512 = null;
+        long fileLength = -1;
+        String optMd5 = obj.optString("md5", null);
+        String optSha512 = obj.optString("sha512", null);
+        if(optMd5 != null) {
+            md5 = hexStringToByteArray(optMd5);
+        }
+        if(optSha512 != null) {
+            sha512 = hexStringToByteArray(optSha512);
+        }
+        fileLength = obj.optLong("size", fileLength);
+        URL url = new URL(obj.getString("url"));
+        return new DefaultDownloadLocation(url, fileLength, md5, sha512);
+    }
+
+    public static DownloadLocation valueOf(String obj)
+            throws MalformedURLException {
+        byte[] md5 = null;
+        byte[] sha512 = null;
+        long fileLength = -1;
+        URL url = new URL(obj);
+        return new DefaultDownloadLocation(url, fileLength, md5, sha512);
+    }
+
+    private static byte[] hexStringToByteArray(String s) {
+        int len = s.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
+                    + Character.digit(s.charAt(i + 1), 16));
+        }
+        return data;
+    }
 }
