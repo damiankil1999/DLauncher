@@ -84,4 +84,9 @@ public class VanillaModPackVersion implements ModPackVersion {
     public String getModPackName() {
         return this.getMainInstance().getName();
     }
+
+    @Override
+    public int compareTo(ModPackVersion o) {
+        return Long.compare(this.releaseDate, o.getReleaseDate());
+    }
 }
