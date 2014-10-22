@@ -22,7 +22,7 @@ public class SettingManager {
    
    public void start() {
       if(!(config.exists())){
-         create()
+         this.create();
       }else{
          
       }
@@ -35,15 +35,14 @@ public class SettingManager {
             config.createNewFile();
 
             FileWriter fw = new FileWriter(config.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            
-            bw.write("");
-            
-            bw.close();
+            try (BufferedWriter bw = new BufferedWriter(fw)) {
+               bw.write("");
+            }
             
             Logger.getGlobal().info("settings.yml created");
          } catch (IOException ex) {
             Logger.getLogger(SettingManager.class.getName()).log(Level.SEVERE, "", ex);
+            
          }
       }
    }
