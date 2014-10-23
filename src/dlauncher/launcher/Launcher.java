@@ -18,6 +18,7 @@ import dlauncher.modpacks.ModpackManager;
 import dlauncher.modpacks.download.ModPackListingDownload;
 import dlauncher.modpacks.download.ModPackListingVanilla;
 import dlauncher.modpacks.packs.ModPack;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,8 +27,12 @@ import java.util.Collection;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 
 public class Launcher extends javax.swing.JFrame {
+
+    public String javaPath = System.getProperty("java.home");
+    public File launcherPath = new File(".");
 
     Information information = new Information();
     Login login = new Login(this, true);
@@ -89,6 +94,8 @@ public class Launcher extends javax.swing.JFrame {
         TimeTingys timet = new TimeTingys(jPasswordField1);
         timet.setup();
 
+        jTextField3.setText(javaPath);
+
     }
 
     /**
@@ -100,6 +107,7 @@ public class Launcher extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
@@ -121,6 +129,18 @@ public class Launcher extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jTabbedPane2 = new javax.swing.JTabbedPane();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+
+        jFileChooser1.setBackground(new java.awt.Color(68, 69, 70));
+        jFileChooser1.setDialogTitle("Select Java Path");
+        jFileChooser1.setFileSelectionMode(javax.swing.JFileChooser.FILES_AND_DIRECTORIES);
+        jFileChooser1.setName("JavaPathFileChooser"); // NOI18N
+        jFileChooser1.getAccessibleContext().setAccessibleName("JavaPathFileChooser");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DLauncher - OH NO SOMETHING WENT WRONG!");
@@ -136,7 +156,7 @@ public class Launcher extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(231, Short.MAX_VALUE)
+                .addContainerGap(251, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
@@ -166,7 +186,7 @@ public class Launcher extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,6 +200,7 @@ public class Launcher extends javax.swing.JFrame {
         jTextField1.setText("Search");
         jTextField1.setToolTipText("Search for a ModPack");
 
+        jButton2.setBackground(new java.awt.Color(133, 135, 139));
         jButton2.setText("Go!");
 
         jScrollPane3.setBackground(java.awt.Color.lightGray);
@@ -197,10 +218,10 @@ public class Launcher extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addContainerGap(245, Short.MAX_VALUE))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,7 +230,7 @@ public class Launcher extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Packs", null, jPanel2, "Display The Arivable ModPack's");
@@ -315,6 +336,64 @@ public class Launcher extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Acount", jPanel6);
 
+        jTabbedPane2.setBackground(new java.awt.Color(102, 107, 111));
+        jTabbedPane2.setOpaque(true);
+
+        jPanel3.setBackground(java.awt.Color.gray);
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Java Path:");
+
+        jTextField3.setBackground(new java.awt.Color(115, 112, 112));
+        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField3.setText("Java Path Unknow bug?                                           Browse -->");
+
+        jButton3.setBackground(new java.awt.Color(133, 135, 139));
+        jButton3.setText("...");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Java Parameters:");
+        jLabel3.setToolTipText("Extera Java Command Line Parameters can be added here");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(76, 76, 76)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
+                .addGap(108, 108, 108)
+                .addComponent(jLabel3)
+                .addContainerGap(196, Short.MAX_VALUE))
+        );
+
+        jTabbedPane2.addTab("Minecraft/Java", null, jPanel3, "Change the settings of Minecraft");
+
+        jTabbedPane1.addTab("Settings", jTabbedPane2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -367,6 +446,13 @@ public class Launcher extends javax.swing.JFrame {
            }
        }
    }//GEN-LAST:event_jPasswordField1KeyTyped
+
+   private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+       int returnVal = jFileChooser1.showOpenDialog(jPanel3);
+       if (returnVal == JFileChooser.APPROVE_OPTION) {
+           jFileChooser1.getSelectedFile().getPath();
+       }
+   }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -422,15 +508,20 @@ public class Launcher extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JEditorPane jEditorPane1;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private static javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -438,8 +529,10 @@ public class Launcher extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JPanel modPackContainer;
     // End of variables declaration//GEN-END:variables
 }
