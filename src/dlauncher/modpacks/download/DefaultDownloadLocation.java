@@ -104,7 +104,13 @@ public class DefaultDownloadLocation implements DownloadLocation {
             sha512 = hexStringToByteArray(optSha512);
         }
         fileLength = obj.optLong("size", fileLength);
-        URL url = new URL(obj.getString("url"));
+        String urlStr = obj.getString("url");
+        URL url;
+        if(urlStr.startsWith("default:")) {
+            url = DefaultDownloadLocation.class.getResource(urlStr.substring("default:".length()));
+        } else {
+            url = new URL(urlStr);
+        }
         return new DefaultDownloadLocation(url, fileLength, md5, sha512);
     }
 
@@ -113,7 +119,12 @@ public class DefaultDownloadLocation implements DownloadLocation {
         byte[] md5 = null;
         byte[] sha512 = null;
         long fileLength = -1;
-        URL url = new URL(obj);
+        URL url;
+        if(obj.startsWith("default:")) {
+            url = DefaultDownloadLocation.class.getResource(obj.substring("default:".length()));
+        } else {
+            url = new URL(obj);
+        }
         return new DefaultDownloadLocation(url, fileLength, md5, sha512);
     }
 
