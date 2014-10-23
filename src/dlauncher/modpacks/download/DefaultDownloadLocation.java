@@ -137,4 +137,9 @@ public class DefaultDownloadLocation implements DownloadLocation {
         }
         return data;
     }
+
+    @Override
+    public String toString() {
+        return "DefaultDownloadLocation{" + "url=" + url + ", size=" + size + ", md5=" + md5 + ", sha512=" + sha512 + ", cachePriority=" + cachePriority + '}';
+    }
 }
