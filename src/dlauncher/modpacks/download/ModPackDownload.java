@@ -5,8 +5,12 @@
  */
 package dlauncher.modpacks.download;
 
+import dlauncher.cache.CacheManager;
 import java.io.File;
+import java.io.IOException;
 
 public interface ModPackDownload extends DownloadLocation {
-    public void installToMinecraftDirectory(File minecraftDirectory);
+
+    public void installToMinecraftDirectory(File minecraftDirectory,
+            CacheManager downloadManager) throws IOException;
 }
