@@ -187,6 +187,7 @@ public class Launcher extends javax.swing.JFrame {
         jScrollPane3.getVerticalScrollBar().setUnitIncrement(16);
 
         modPackContainer.setBackground(java.awt.Color.gray);
+        modPackContainer.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
         jScrollPane3.setViewportView(modPackContainer);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
