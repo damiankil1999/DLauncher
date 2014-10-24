@@ -15,6 +15,7 @@ import dlauncher.logger.Console;
 import dlauncher.logger.TextAreaHandler;
 import dlauncher.modpacks.ModpackGuiPanel;
 import dlauncher.modpacks.ModpackManager;
+import dlauncher.modpacks.download.DlauncherModPackListing;
 import dlauncher.modpacks.download.ModPackListingDownload;
 import dlauncher.modpacks.download.ModPackListingVanilla;
 import dlauncher.modpacks.packs.ModPack;
@@ -50,6 +51,9 @@ public class Launcher extends javax.swing.JFrame {
                     Arrays.<ModPackListingDownload>asList(
                             new ModPackListingVanilla(
                                     new URL("http://s3.amazonaws.com/Minecraft.Download/versions/versions.json")
+                            ),
+                            new DlauncherModPackListing(
+                                    new URL("http://dlauncher.byethost13.com/secret/modpacksinfo.json")
                             )
                     ),
                     cache = new DefaultCacheManager(
