@@ -6,7 +6,9 @@
 
 package dlauncher.modpacks.download;
 
+import dlauncher.cache.CacheManager;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 public class DefaultModPackDownload extends DefaultDownloadLocation
@@ -21,8 +23,8 @@ implements ModPackDownload {
     }
     
     @Override
-    public void installToMinecraftDirectory(File minecraftDirectory) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void installToMinecraftDirectory(File minecraftDirectory, CacheManager downloadManager) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

@@ -5,7 +5,7 @@
  */
 package dlauncher.modpacks.packs;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public interface UnresolvedModPack {
 
-    List<ModPackVersionDescription> getRequiredDependencies();
+    Collection<? extends ModPackVersionDescription> getRequiredDependencies();
 
     ModPack createModPack(Map<String, ModPack> dependencies);
     
