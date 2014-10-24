@@ -48,6 +48,7 @@ public class ModpackManager {
         }
         isRefreshing = true;
         allModPacks.clear();
+        final Map<String, ModPack> modpackList = new HashMap<>();
         new SwingWorker<Map<String, ModPack>, ModPackUpdateEvent>() {
             
             @Override
@@ -106,7 +107,7 @@ public class ModpackManager {
                             }
                             continue detectModpack;
                         }
-                        mod = next.createModPack(allModPacks);
+                        mod = next.createModPack(modpackList);
                         if (mod == null) {
                             Logger.getGlobal().log(Level.WARNING,
                                     "Mod {0} doesn't give a valid modpack "
@@ -116,6 +117,7 @@ public class ModpackManager {
                         } else {
                             resolvedModpacks.put(mod.getName(), mod);
                             resolvedPacks.add(mod);
+                            modpackList.put(mod.getName(), mod);
                         }
                         m.remove();
                         resolved++;
