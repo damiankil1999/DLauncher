@@ -124,7 +124,7 @@ public class DlauncherModPackListing extends DefaultDownloadLocation
                     }
                 }
             }
-            if ((authorsString = modpackJson.optString("Authors", null))
+            if ((authorsString = modpackJson.optString("Author", null))
                     != null) {
                 authors.add(authorsString);
             }
