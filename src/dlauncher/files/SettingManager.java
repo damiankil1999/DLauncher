@@ -5,12 +5,12 @@
  */
 package dlauncher.files;
 
-import java.io.BufferedWriter;
 import java.io.File;
+/*import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.Logger;*/
 
 public class SettingManager {
 
@@ -21,14 +21,15 @@ public class SettingManager {
    File config = new File(launcherPath + "settings.yml");
    
    public void start() {
-      if(!(config.exists())){
+      /*if(!(config.exists())){
          this.create();
       }else{
          
-      }
+      }*/
+      
    }
    
-   private void create(){
+   /*private void create(){
       if (!(config.exists())) {
 
          try {
@@ -45,6 +46,5 @@ public class SettingManager {
             
          }
       }
-   }
-
+   }*/
 }
