@@ -8,8 +8,6 @@ package dlauncher.theme;
 import java.util.Arrays;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
 import javax.swing.UIManager;
 
 public class Theme {
