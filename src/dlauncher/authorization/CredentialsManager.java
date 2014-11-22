@@ -5,21 +5,48 @@
  */
 package dlauncher.authorization;
 
+import dlauncher.cache.CacheManager;
+import dlauncher.cache.util.SizeLimitedByteArrayOutputStream;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CredentialsManager {
 
     private final String clientToken;
     private final List<AuthorizationInfoImpl> authDatabase = new ArrayList<>();
+    private static final URL refresh;
+    private static final URL validate;
+    private static final URL invalidate;
+    private static final URL authenticate;
+
+    static {
+        try {
+            refresh = new URL("https://authserver.mojang.com/refresh");
+            validate = new URL("https://authserver.mojang.com/validate");
+            invalidate = new URL("https://authserver.mojang.com/invalidate");
+            authenticate = new URL("https://authserver.mojang.com/authenticate");
+        } catch (MalformedURLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
     public CredentialsManager(File accountsFile, Charset encoding)
         throws IOException {
@@ -34,7 +61,9 @@ public class CredentialsManager {
                     JSONObject obj1 = arr.getJSONObject(i);
                     this.authDatabase.add(new AuthorizationInfoImpl(
                         obj1.getString("accessToken"), false,
-                        obj1.getString("userid"), obj1.getString("username")));
+                        obj1.getString("uuid"), obj1.getString("displayName"), 
+                        obj1.optString("twitch_acces_token", null), 
+                    obj1.getString("userid")));
                 }
             }
         } else {
@@ -45,13 +74,13 @@ public class CredentialsManager {
     public List<? extends AuthorizationInfo> getAccessTokens() {
         return Collections.<AuthorizationInfo>unmodifiableList(authDatabase);
     }
-    
+
     public String getClientToken() {
         return clientToken;
     }
-    
+
     public void validateAndRefreshTokens() {
-        
+
     }
 
     public interface AuthorizationInfo {
@@ -62,12 +91,16 @@ public class CredentialsManager {
 
         public String getAccessToken();
 
+        public String getUserID();
+
         public String getAcountID();
 
         public String getAcountName();
-        
+
+        public String getTwitchAccesToken();
+
         public AuthorizationInfo refresh() throws IOException;
-        
+
         public void validate() throws IOException;
     }
 
@@ -75,14 +108,20 @@ public class CredentialsManager {
 
         private final String accessToken;
         private boolean valid;
+        private final String mojangID;
         private final String acountID;
         private final String acountName;
+        private final String twitchAccesToken;
 
-        public AuthorizationInfoImpl(String accessToken, boolean valid, String acountID, String acountName) {
+        public AuthorizationInfoImpl(String accessToken, boolean valid,
+            String acountID, String acountName,
+            String twitchAccesToken, String mojangID) {
             this.accessToken = accessToken;
             this.valid = valid;
             this.acountID = acountID;
             this.acountName = acountName;
+            this.twitchAccesToken = twitchAccesToken;
+            this.mojangID = mojangID;
         }
 
         @Override
@@ -116,12 +155,71 @@ public class CredentialsManager {
 
         @Override
         public AuthorizationInfoImpl refresh() throws IOException {
-            
+            this.valid = false;
+            HttpURLConnection con = (HttpURLConnection) refresh.openConnection();
+            con.setUseCaches(false);
+            con.addRequestProperty("Connection", "close");
+            con.setRequestMethod("POST");
+            con.setConnectTimeout(15 * 1000);
+            con.setReadTimeout(15 * 1000);
+            JSONObject obj = new JSONObject();
+            obj.put("clientToken", CredentialsManager.this.clientToken);
+            obj.put("accessToken", this.accessToken);
+            obj.put("requestUser", true);
+            con.connect();
+            try (OutputStream out = con.getOutputStream()) {
+                out.write(obj.toString().getBytes(Charset.forName("UTF-8")));
+            }
+            byte[] data = new byte[1024];
+            int length;
+            try (SizeLimitedByteArrayOutputStream bytes
+                = new SizeLimitedByteArrayOutputStream(1024 * 4)) {
+                try (InputStream in
+                    = new BufferedInputStream(con.getInputStream())) {
+                    while ((length = in.read(data)) >= 0) {
+                        bytes.write(data, 0, length);
+                    }
+                }
+                con.disconnect();
+                obj = new JSONObject(new String(bytes.toByteArray(),
+                    Charset.forName("UTF-8")));
+            }
+            try {
+                JSONArray userProperties = obj.getJSONObject("user")
+                    .optJSONArray("properties");
+                Map<String, String> props = new HashMap<>();
+                if (userProperties != null) {
+                    length = userProperties.length();
+                    for (int i = 0; i < length; i++) {
+                        props.put(
+                            userProperties.getJSONObject(i).getString("name"),
+                            userProperties.getJSONObject(i).getString("value"));
+                    }
+                }
+                return new AuthorizationInfoImpl(obj.getString("accesToken"), true,
+                    obj.getJSONObject("selectedProfile").getString("id"),
+                    obj.getJSONObject("selectedProfile").getString("user"),
+                    props.get("twitch_access_token"),
+                    obj.getJSONObject("user").getString("id")
+                );
+            } catch (JSONException ex) {
+                throw new IOException(ex);
+            }
         }
 
         @Override
         public void validate() throws IOException {
-            
+
+        }
+
+        @Override
+        public String getTwitchAccesToken() {
+            return twitchAccesToken;
+        }
+
+        @Override
+        public String getUserID() {
+            return mojangID;
         }
     }
 }
