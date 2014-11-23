@@ -192,6 +192,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
             con.setDoInput(true);
             con.setUseCaches(false);
             con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
             con.setConnectTimeout(15 * 1000);
             con.setReadTimeout(15 * 1000);
             con.connect();
