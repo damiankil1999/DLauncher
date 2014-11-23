@@ -215,14 +215,19 @@ public class DefaultCredentialsManager implements CredentialsManager {
                         bytes.write(data, 0, length);
                     }
                 }
-                obj = new JSONObject(new String(bytes.toByteArray(),
-                    Charset.forName("UTF-8")));
+                byte[] rawBytes = bytes.toByteArray();
+                if (rawBytes.length != 0) {
+                    obj = new JSONObject(new String(rawBytes,
+                        Charset.forName("UTF-8")));
+                } else {
+                    obj = new JSONObject();
+                }
                 if (obj.has("error")) {
                     String error = obj.getString("error");
                     String errorMessage = obj.getString("errorMessage");
                     String cause = obj.optString("cause", null);
-                    if("ForbiddenOperationException".equals(error)) {
-                        if("UserMigratedException".equals(cause)) {
+                    if ("ForbiddenOperationException".equals(error)) {
+                        if ("UserMigratedException".equals(cause)) {
                             throw new UserMigratedException(errorMessage);
                         }
                         throw new ForbiddenOperationException(errorMessage);
