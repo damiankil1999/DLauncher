@@ -185,6 +185,12 @@ public class DefaultCredentialsManager implements CredentialsManager {
 
     private static JSONObject makeRequest(URL url, JSONObject post)
         throws ProtocolException, IOException, AuthorizationException {
+        return makeRequest(url, post, false);
+    }
+
+    private static JSONObject makeRequest(URL url, JSONObject post,
+        boolean ignoreErrors)
+        throws ProtocolException, IOException, AuthorizationException {
         JSONObject obj = null;
         try {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -222,7 +228,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
                 } else {
                     obj = new JSONObject();
                 }
-                if (obj.has("error")) {
+                if (!ignoreErrors && obj.has("error")) {
                     String error = obj.getString("error");
                     String errorMessage = obj.getString("errorMessage");
                     String cause = obj.optString("cause", null);
