@@ -183,11 +183,11 @@ public class DefaultCredentialsManager implements CredentialsManager {
         }
     }
 
-    private static JSONObject makeRequest(URL url, JSONObject post) 
+    private static JSONObject makeRequest(URL url, JSONObject post)
         throws ProtocolException, IOException, AuthorizationException {
         JSONObject obj = null;
         try {
-            HttpURLConnection con = (HttpURLConnection) refresh.openConnection();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setDoOutput(true);
             con.setDoInput(true);
             con.setUseCaches(false);
