@@ -135,7 +135,8 @@ public class DefaultCredentialsManager implements CredentialsManager {
         }
 
         @Override
-        public AuthorizationInfoImpl refresh() throws IOException {
+        public AuthorizationInfoImpl refresh()
+            throws IOException, AuthorizationException {
             this.valid = false;
             JSONObject obj = new JSONObject();
             obj.put("clientToken", DefaultCredentialsManager.this.clientToken);
@@ -144,10 +145,6 @@ public class DefaultCredentialsManager implements CredentialsManager {
             obj = makeRequest(refresh, obj);
             int length;
             try {
-                if (obj.has("error")) {
-
-                }
-
                 JSONArray userProperties = obj.getJSONObject("user")
                     .optJSONArray("properties");
                 Map<String, String> props = new HashMap<>();
@@ -186,37 +183,54 @@ public class DefaultCredentialsManager implements CredentialsManager {
         }
     }
 
-    private static JSONObject makeRequest(URL url, JSONObject post) throws ProtocolException, IOException {
-        HttpURLConnection con = (HttpURLConnection) refresh.openConnection();
-        con.setDoOutput(true);
-        con.setDoInput(true);
-        con.setUseCaches(false);
-        con.setRequestMethod("POST");
-        con.setConnectTimeout(15 * 1000);
-        con.setReadTimeout(15 * 1000);
-
-        con.connect();
-        try (OutputStream out = con.getOutputStream()) {
-            out.write(post.toString().getBytes(Charset.forName("UTF-8")));
-        }
-        con.getResponseCode();
-        InputStream instr;
-        instr = con.getErrorStream();
-        if (instr == null) {
-            instr = con.getInputStream();
-        }
-        byte[] data = new byte[1024];
-        int length;
-        try (SizeLimitedByteArrayOutputStream bytes
-            = new SizeLimitedByteArrayOutputStream(1024 * 4)) {
-            try (InputStream in
-                = new BufferedInputStream(instr)) {
-                while ((length = in.read(data)) >= 0) {
-                    bytes.write(data, 0, length);
-                }
+    private static JSONObject makeRequest(URL url, JSONObject post) 
+        throws ProtocolException, IOException, AuthorizationException {
+        JSONObject obj = null;
+        try {
+            HttpURLConnection con = (HttpURLConnection) refresh.openConnection();
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setUseCaches(false);
+            con.setRequestMethod("POST");
+            con.setConnectTimeout(15 * 1000);
+            con.setReadTimeout(15 * 1000);
+            con.connect();
+            try (OutputStream out = con.getOutputStream()) {
+                out.write(post.toString().getBytes(Charset.forName("UTF-8")));
             }
-            return new JSONObject(new String(bytes.toByteArray(),
-                Charset.forName("UTF-8")));
+            con.getResponseCode();
+            InputStream instr;
+            instr = con.getErrorStream();
+            if (instr == null) {
+                instr = con.getInputStream();
+            }
+            byte[] data = new byte[1024];
+            int length;
+            try (SizeLimitedByteArrayOutputStream bytes
+                = new SizeLimitedByteArrayOutputStream(1024 * 4)) {
+                try (InputStream in
+                    = new BufferedInputStream(instr)) {
+                    while ((length = in.read(data)) >= 0) {
+                        bytes.write(data, 0, length);
+                    }
+                }
+                obj = new JSONObject(new String(bytes.toByteArray(),
+                    Charset.forName("UTF-8")));
+                if (obj.has("error")) {
+                    String error = obj.getString("error");
+                    String errorMessage = obj.getString("errorMessage");
+                    String cause = obj.optString("cause", null);
+                    if("ForbiddenOperationException".equals(error)) {
+                        if("UserMigratedException".equals(cause)) {
+                            throw new UserMigratedException(errorMessage);
+                        }
+                        throw new ForbiddenOperationException(errorMessage);
+                    }
+                }
+                return obj;
+            }
+        } catch (JSONException ex) {
+            throw new InvalidResponseException(ex, obj);
         }
     }
 }

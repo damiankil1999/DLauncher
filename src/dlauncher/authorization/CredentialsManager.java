@@ -32,7 +32,8 @@ public interface CredentialsManager {
 
         public String getTwitchAccesToken();
 
-        public AuthorizationInfo refresh() throws IOException;
+        public AuthorizationInfo refresh()
+            throws IOException, AuthorizationException;
 
         public void validate() throws IOException;
     }
