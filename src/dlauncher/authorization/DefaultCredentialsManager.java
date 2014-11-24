@@ -85,6 +85,53 @@ public class DefaultCredentialsManager implements CredentialsManager {
 
     }
 
+    @Override
+    public AuthorizationInfo refresh(AuthorizationInfo token)
+        throws IOException, AuthorizationException {
+        if (token.getManager() != this) {
+            throw new IllegalArgumentException(
+                "Token not managed by this manager!");
+        }
+        assert token instanceof AuthorizationInfoImpl;
+        AuthorizationInfoImpl toRefresh = (AuthorizationInfoImpl) token;
+        this.authDatabase.remove(toRefresh);
+        AuthorizationInfoImpl output = toRefresh.refresh();
+        this.authDatabase.add(output);
+        return output;
+    }
+
+    @Override
+    public AuthorizationInfo validate(AuthorizationInfo token)
+        throws IOException, AuthorizationException {
+        if (token.getManager() != this) {
+            throw new IllegalArgumentException(
+                "Token not managed by this manager!");
+        }
+        assert token instanceof AuthorizationInfoImpl;
+        AuthorizationInfoImpl toRefresh = (AuthorizationInfoImpl) token;
+        toRefresh.validate();
+        if (!toRefresh.isValidated()) {
+            this.authDatabase.remove(toRefresh);
+            return null;
+        }
+        return toRefresh;
+    }
+
+    @Override
+    public AuthorizationInfo addAccessToken(String account, String password) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public int removeInvalidAccessTokens() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void invalidateAccessToken(AuthorizationInfo token) throws IOException, AuthorizationException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private class AuthorizationInfoImpl implements AuthorizationInfo {
 
         private final String accessToken;
@@ -134,8 +181,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
             return acountName;
         }
 
-        @Override
-        public AuthorizationInfoImpl refresh()
+        private AuthorizationInfoImpl refresh()
             throws IOException, AuthorizationException {
             this.valid = false;
             JSONObject obj = new JSONObject();
@@ -163,13 +209,16 @@ public class DefaultCredentialsManager implements CredentialsManager {
                     obj.getJSONObject("user").getString("id")
                 );
             } catch (JSONException ex) {
-                throw new IOException(ex);
+                throw new InvalidResponseException(ex, obj);
             }
         }
 
-        @Override
-        public void validate() throws IOException {
-
+        private void validate()
+            throws IOException, AuthorizationException {
+            this.valid = false;
+            JSONObject obj = new JSONObject();
+            obj.put("accessToken", this.accessToken);
+            this.valid = !makeRequest(validate, obj, true).has("error");
         }
 
         @Override
@@ -238,6 +287,8 @@ public class DefaultCredentialsManager implements CredentialsManager {
                         }
                         throw new ForbiddenOperationException(errorMessage);
                     }
+                    throw new AuthorizationException(
+                        error + (cause != null ? "." + cause : "") + ": " + errorMessage);
                 }
                 return obj;
             }

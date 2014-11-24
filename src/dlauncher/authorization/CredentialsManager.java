@@ -16,6 +16,19 @@ public interface CredentialsManager {
 
     void validateAndRefreshTokens();
 
+    public AuthorizationInfo refresh(AuthorizationInfo token) throws
+        IOException, AuthorizationException;
+
+    public AuthorizationInfo validate(AuthorizationInfo token) throws
+        IOException, AuthorizationException;
+
+    public AuthorizationInfo addAccessToken(String account, String password);
+
+    public int removeInvalidAccessTokens();
+
+    public void invalidateAccessToken(AuthorizationInfo token) throws
+        IOException, AuthorizationException;
+
     public interface AuthorizationInfo {
 
         public CredentialsManager getManager();
@@ -31,10 +44,5 @@ public interface CredentialsManager {
         public String getAcountName();
 
         public String getTwitchAccesToken();
-
-        public AuthorizationInfo refresh()
-            throws IOException, AuthorizationException;
-
-        public void validate() throws IOException;
     }
 }
