@@ -39,10 +39,12 @@ public interface CredentialsManager {
 
         public String getUserID();
 
-        public String getAcountID();
+        public String getUuid();
 
-        public String getAcountName();
+        public String getDisplayName();
 
         public String getTwitchAccesToken();
+        
+        public String getUsername();
     }
 }

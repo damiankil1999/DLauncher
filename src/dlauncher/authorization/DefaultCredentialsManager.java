@@ -62,7 +62,8 @@ public class DefaultCredentialsManager implements CredentialsManager {
                         obj1.getString("accessToken"), false,
                         obj1.getString("uuid"), obj1.getString("displayName"),
                         obj1.optString("twitch_acces_token", null),
-                        obj1.getString("userid")));
+                        obj1.getString("userid"),
+                        obj1.getString("username")));
                 }
             }
         } else {
@@ -136,20 +137,20 @@ public class DefaultCredentialsManager implements CredentialsManager {
 
         private final String accessToken;
         private boolean valid;
-        private final String mojangID;
-        private final String acountID;
-        private final String acountName;
+        private final String userid;
+        private final String uuid;
+        private final String displayName;
         private final String twitchAccesToken;
+        private final String username;
 
-        public AuthorizationInfoImpl(String accessToken, boolean valid,
-            String acountID, String acountName,
-            String twitchAccesToken, String mojangID) {
+        public AuthorizationInfoImpl(String accessToken, boolean valid, String uuid, String displayName, String twitchAccesToken, String userid, String username) {
             this.accessToken = accessToken;
             this.valid = valid;
-            this.acountID = acountID;
-            this.acountName = acountName;
+            this.uuid = uuid;
+            this.displayName = displayName;
             this.twitchAccesToken = twitchAccesToken;
-            this.mojangID = mojangID;
+            this.userid = userid;
+            this.username = username;
         }
 
         @Override
@@ -172,13 +173,13 @@ public class DefaultCredentialsManager implements CredentialsManager {
         }
 
         @Override
-        public String getAcountID() {
-            return acountID;
+        public String getUuid() {
+            return uuid;
         }
 
         @Override
-        public String getAcountName() {
-            return acountName;
+        public String getDisplayName() {
+            return displayName;
         }
 
         private AuthorizationInfoImpl refresh()
@@ -206,7 +207,8 @@ public class DefaultCredentialsManager implements CredentialsManager {
                     true, obj.getJSONObject("selectedProfile").getString("id"),
                     obj.getJSONObject("selectedProfile").getString("user"),
                     props.get("twitch_access_token"),
-                    obj.getJSONObject("user").getString("id")
+                    obj.getJSONObject("user").getString("id"),
+                    this.username
                 );
             } catch (JSONException ex) {
                 throw new InvalidResponseException(ex, obj);
@@ -228,7 +230,12 @@ public class DefaultCredentialsManager implements CredentialsManager {
 
         @Override
         public String getUserID() {
-            return mojangID;
+            return userid;
+        }
+
+        @Override
+        public String getUsername() {
+            return username;
         }
     }
 
