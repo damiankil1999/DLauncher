@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -125,7 +126,15 @@ public class DefaultCredentialsManager implements CredentialsManager {
 
     @Override
     public int removeInvalidAccessTokens() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int count = 0;
+        Iterator<AuthorizationInfoImpl> tokens = this.authDatabase.iterator();
+        while (tokens.hasNext()) {
+            if (!tokens.next().isValidated()) {
+                tokens.remove();
+                count++;
+            }
+        }
+        return count;
     }
 
     @Override
