@@ -138,8 +138,16 @@ public class DefaultCredentialsManager implements CredentialsManager {
     }
 
     @Override
-    public void invalidateAccessToken(AuthorizationInfo token) throws IOException, AuthorizationException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void invalidateAccessToken(AuthorizationInfo token) 
+        throws IOException, AuthorizationException {
+        if (token.getManager() != this) {
+            throw new IllegalArgumentException(
+                "Token not managed by this manager!");
+        }
+        assert token instanceof AuthorizationInfoImpl;
+        AuthorizationInfoImpl toRefresh = (AuthorizationInfoImpl) token;
+        toRefresh.invalidate();
+        this.authDatabase.remove(toRefresh);
     }
 
     private class AuthorizationInfoImpl implements AuthorizationInfo {
@@ -232,6 +240,16 @@ public class DefaultCredentialsManager implements CredentialsManager {
             this.valid = !makeRequest(validate, obj, true).has("error");
         }
 
+        private void invalidate()
+            throws IOException, AuthorizationException {
+            this.valid = false;
+            JSONObject obj = new JSONObject();
+            obj.put("accessToken", this.accessToken);
+            obj.put("clientToken", this.getManager().getClientToken());
+            makeRequest(validate, obj, true);
+            this.valid = false;
+        }
+        
         @Override
         public String getTwitchAccesToken() {
             return twitchAccesToken;
