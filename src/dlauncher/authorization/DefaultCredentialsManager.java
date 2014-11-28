@@ -20,10 +20,14 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,7 +88,25 @@ public class DefaultCredentialsManager implements CredentialsManager {
 
     @Override
     public void validateAndRefreshTokens() {
-
+        Set<AuthorizationInfoImpl> toAdd = new HashSet<>();
+        Iterator<AuthorizationInfoImpl> loop = this.authDatabase.iterator();
+        while(loop.hasNext()) {
+            AuthorizationInfoImpl v = loop.next();
+            if(!v.valid) {
+                try {
+                    v.validate();
+                    if(!v.isValidated()) {
+                        toAdd.add(v.refresh());
+                        loop.remove();
+                    }
+                } catch (IOException | AuthorizationException ex) {
+                    Logger.getGlobal().log(Level.SEVERE, null, ex);
+                    v.setValid(false);
+                    loop.remove();
+                }
+            }
+        }
+        authDatabase.addAll(toAdd);
     }
 
     @Override
