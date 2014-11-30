@@ -142,8 +142,43 @@ public class DefaultCredentialsManager implements CredentialsManager {
     }
 
     @Override
-    public AuthorizationInfo addAccessToken(String account, String password) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public AuthorizationInfo addAccessToken(String account, String password)
+        throws IOException, AuthorizationException {
+        JSONObject obj = new JSONObject();
+            obj.put("clientToken", DefaultCredentialsManager.this.clientToken);
+            obj.put("username", account);
+            obj.put("password", password);
+            JSONObject agent = new JSONObject();
+            agent.put("name", "minecraft");
+            agent.put("version", "1");
+            obj.put("agent",agent);
+            obj.put("requestUser", true);
+            obj = makeRequest(refresh, obj);
+            int length;
+            try {
+                JSONArray userProperties = obj.getJSONObject("user")
+                    .optJSONArray("properties");
+                Map<String, String> props = new HashMap<>();
+                if (userProperties != null) {
+                    length = userProperties.length();
+                    for (int i = 0; i < length; i++) {
+                        props.put(
+                            userProperties.getJSONObject(i).getString("name"),
+                            userProperties.getJSONObject(i).getString("value"));
+                    }
+                }
+                AuthorizationInfoImpl token = new AuthorizationInfoImpl(obj.getString("accesToken"),
+                    true, obj.getJSONObject("selectedProfile").getString("id"),
+                    obj.getJSONObject("selectedProfile").getString("user"),
+                    props.get("twitch_access_token"),
+                    obj.getJSONObject("user").getString("id"),
+                    account
+                );
+                this.authDatabase.add(token);
+                return token;
+            } catch (JSONException ex) {
+                throw new InvalidResponseException(ex, obj);
+            }
     }
 
     @Override

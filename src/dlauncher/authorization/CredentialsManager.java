@@ -22,7 +22,8 @@ public interface CredentialsManager {
     public AuthorizationInfo validate(AuthorizationInfo token) throws
         IOException, AuthorizationException;
 
-    public AuthorizationInfo addAccessToken(String account, String password);
+    public AuthorizationInfo addAccessToken(String account, String password)
+        throws IOException, AuthorizationException;
 
     public int removeInvalidAccessTokens();
 
