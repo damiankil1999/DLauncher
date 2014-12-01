@@ -91,7 +91,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
             tokenObj.put("accessToken", token.getAccessToken());
             tokenObj.put("uuid", token.getUuid());
             tokenObj.put("displayName", token.getDisplayName());
-            tokenObj.put("twitch_acces_token", token.getTwitchAccesToken());
+            tokenObj.put("twitch_acces_token", token.getTwitchAccessToken());
             tokenObj.put("userid", token.getUserID());
             tokenObj.put("username", token.getUsername());
             authInfo.put(tokenObj);
@@ -242,7 +242,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
         private final String userid;
         private final String uuid;
         private final String displayName;
-        private final String twitchAccesToken;
+        private final String twitchAccessToken;
         private final String username;
 
         public AuthorizationInfoImpl(String accessToken, boolean valid,
@@ -252,7 +252,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
             this.valid = valid;
             this.uuid = uuid;
             this.displayName = displayName;
-            this.twitchAccesToken = twitchAccesToken;
+            this.twitchAccessToken = twitchAccesToken;
             this.userid = userid;
             this.username = username;
         }
@@ -338,8 +338,8 @@ public class DefaultCredentialsManager implements CredentialsManager {
         }
 
         @Override
-        public String getTwitchAccesToken() {
-            return twitchAccesToken;
+        public String getTwitchAccessToken() {
+            return twitchAccessToken;
         }
 
         @Override

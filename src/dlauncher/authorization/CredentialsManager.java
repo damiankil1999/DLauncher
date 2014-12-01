@@ -47,7 +47,7 @@ public interface CredentialsManager {
 
         public String getDisplayName();
 
-        public String getTwitchAccesToken();
+        public String getTwitchAccessToken();
 
         public String getUsername();
     }
