@@ -133,7 +133,6 @@ public class DefaultCredentialsManager implements CredentialsManager {
                 } catch (IOException | AuthorizationException ex) {
                     Logger.getGlobal().log(Level.SEVERE, null, ex);
                     v.setValid(false);
-                    loop.remove();
                 }
             }
         }
