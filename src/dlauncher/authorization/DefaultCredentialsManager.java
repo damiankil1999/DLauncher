@@ -86,7 +86,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
         JSONObject obj = new JSONObject();
         obj.put("clientToken", this.clientToken);
         JSONArray authInfo = new JSONArray();
-        for(AuthorizationInfoImpl token : authDatabase) {
+        for (AuthorizationInfoImpl token : authDatabase) {
             JSONObject tokenObj = new JSONObject();
             tokenObj.put("accessToken", token.getAccessToken());
             tokenObj.put("uuid", token.getUuid());
@@ -97,7 +97,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
             authInfo.put(tokenObj);
         }
         obj.put("authenticationDatabase", authInfo);
-        try(Writer writer = new BufferedWriter(
+        try (Writer writer = new BufferedWriter(
             new FileWriter(this.accountsFile))) {
             writer.write(obj.toString());
         }
@@ -117,12 +117,12 @@ public class DefaultCredentialsManager implements CredentialsManager {
     public void validateAndRefreshTokens() {
         Set<AuthorizationInfoImpl> toAdd = new HashSet<>();
         Iterator<AuthorizationInfoImpl> loop = this.authDatabase.iterator();
-        while(loop.hasNext()) {
+        while (loop.hasNext()) {
             AuthorizationInfoImpl v = loop.next();
-            if(!v.valid) {
+            if (!v.valid) {
                 try {
                     v.validate();
-                    if(!v.isValidated()) {
+                    if (!v.isValidated()) {
                         toAdd.add(v.refresh());
                         loop.remove();
                     }
@@ -172,40 +172,41 @@ public class DefaultCredentialsManager implements CredentialsManager {
     public AuthorizationInfo addAccessToken(String account, String password)
         throws IOException, AuthorizationException {
         JSONObject obj = new JSONObject();
-            obj.put("clientToken", DefaultCredentialsManager.this.clientToken);
-            obj.put("username", account);
-            obj.put("password", password);
-            JSONObject agent = new JSONObject();
-            agent.put("name", "minecraft");
-            agent.put("version", "1");
-            obj.put("agent",agent);
-            obj.put("requestUser", true);
-            obj = makeRequest(refresh, obj);
-            int length;
-            try {
-                JSONArray userProperties = obj.getJSONObject("user")
-                    .optJSONArray("properties");
-                Map<String, String> props = new HashMap<>();
-                if (userProperties != null) {
-                    length = userProperties.length();
-                    for (int i = 0; i < length; i++) {
-                        props.put(
-                            userProperties.getJSONObject(i).getString("name"),
-                            userProperties.getJSONObject(i).getString("value"));
-                    }
+        obj.put("clientToken", DefaultCredentialsManager.this.clientToken);
+        obj.put("username", account);
+        obj.put("password", password);
+        JSONObject agent = new JSONObject();
+        agent.put("name", "minecraft");
+        agent.put("version", "1");
+        obj.put("agent", agent);
+        obj.put("requestUser", true);
+        obj = makeRequest(refresh, obj);
+        int length;
+        try {
+            JSONArray userProperties = obj.getJSONObject("user")
+                .optJSONArray("properties");
+            Map<String, String> props = new HashMap<>();
+            if (userProperties != null) {
+                length = userProperties.length();
+                for (int i = 0; i < length; i++) {
+                    props.put(
+                        userProperties.getJSONObject(i).getString("name"),
+                        userProperties.getJSONObject(i).getString("value"));
                 }
-                AuthorizationInfoImpl token = new AuthorizationInfoImpl(obj.getString("accesToken"),
-                    true, obj.getJSONObject("selectedProfile").getString("id"),
-                    obj.getJSONObject("selectedProfile").getString("user"),
-                    props.get("twitch_access_token"),
-                    obj.getJSONObject("user").getString("id"),
-                    account
-                );
-                this.authDatabase.add(token);
-                return token;
-            } catch (JSONException ex) {
-                throw new InvalidResponseException(ex, obj);
             }
+            AuthorizationInfoImpl token = new AuthorizationInfoImpl(
+                obj.getString("accesToken"), true,
+                obj.getJSONObject("selectedProfile").getString("id"),
+                obj.getJSONObject("selectedProfile").getString("user"),
+                props.get("twitch_access_token"),
+                obj.getJSONObject("user").getString("id"),
+                account
+            );
+            this.authDatabase.add(token);
+            return token;
+        } catch (JSONException ex) {
+            throw new InvalidResponseException(ex, obj);
+        }
     }
 
     @Override
@@ -222,7 +223,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
     }
 
     @Override
-    public void invalidateAccessToken(AuthorizationInfo token) 
+    public void invalidateAccessToken(AuthorizationInfo token)
         throws IOException, AuthorizationException {
         if (token.getManager() != this) {
             throw new IllegalArgumentException(
@@ -244,7 +245,9 @@ public class DefaultCredentialsManager implements CredentialsManager {
         private final String twitchAccesToken;
         private final String username;
 
-        public AuthorizationInfoImpl(String accessToken, boolean valid, String uuid, String displayName, String twitchAccesToken, String userid, String username) {
+        public AuthorizationInfoImpl(String accessToken, boolean valid,
+            String uuid, String displayName, String twitchAccesToken,
+            String userid, String username) {
             this.accessToken = accessToken;
             this.valid = valid;
             this.uuid = uuid;
@@ -333,7 +336,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
             makeRequest(validate, obj, true);
             this.valid = false;
         }
-        
+
         @Override
         public String getTwitchAccesToken() {
             return twitchAccesToken;
@@ -406,7 +409,8 @@ public class DefaultCredentialsManager implements CredentialsManager {
                         throw new ForbiddenOperationException(errorMessage);
                     }
                     throw new AuthorizationException(
-                        error + (cause != null ? "." + cause : "") + ": " + errorMessage);
+                        error + (cause != null ? "." + cause : "") + ": "
+                        + errorMessage);
                 }
                 return obj;
             }

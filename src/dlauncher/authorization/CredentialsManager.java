@@ -29,7 +29,7 @@ public interface CredentialsManager {
 
     public void invalidateAccessToken(AuthorizationInfo token) throws
         IOException, AuthorizationException;
-    
+
     public void save() throws
         IOException;
 
@@ -48,7 +48,7 @@ public interface CredentialsManager {
         public String getDisplayName();
 
         public String getTwitchAccesToken();
-        
+
         public String getUsername();
     }
 }
