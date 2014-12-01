@@ -184,7 +184,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
         agent.put("version", "1");
         obj.put("agent", agent);
         obj.put("requestUser", true);
-        obj = makeRequest(refresh, obj);
+        obj = makeRequest(authenticate, obj);
         int length;
         try {
             JSONArray userProperties = obj.getJSONObject("user")
@@ -337,7 +337,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
             JSONObject obj = new JSONObject();
             obj.put("accessToken", this.accessToken);
             obj.put("clientToken", this.getManager().getClientToken());
-            makeRequest(validate, obj, true);
+            makeRequest(invalidate, obj, true);
             this.valid = false;
         }
 
