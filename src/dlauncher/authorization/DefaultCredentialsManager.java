@@ -199,7 +199,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
                 }
             }
             AuthorizationInfoImpl token = new AuthorizationInfoImpl(
-                obj.getString("accesToken"), true,
+                obj.getString("accessToken"), true,
                 obj.getJSONObject("selectedProfile").getString("id"),
                 obj.getJSONObject("selectedProfile").getString("user"),
                 props.get("twitch_access_token"),
@@ -311,7 +311,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
                             userProperties.getJSONObject(i).getString("value"));
                     }
                 }
-                return new AuthorizationInfoImpl(obj.getString("accesToken"),
+                return new AuthorizationInfoImpl(obj.getString("accessToken"),
                     true, obj.getJSONObject("selectedProfile").getString("id"),
                     obj.getJSONObject("selectedProfile").getString("user"),
                     props.get("twitch_access_token"),
