@@ -9,10 +9,11 @@ import dlauncher.cache.util.SizeLimitedByteArrayOutputStream;
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -39,6 +40,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
 
     private final String clientToken;
     private final File accountsFile;
+    private final Charset encoding;
     private final List<AuthorizationInfoImpl> authDatabase = new ArrayList<>();
     private static final URL refresh;
     private static final URL validate;
@@ -59,6 +61,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
     public DefaultCredentialsManager(File accountsFile, Charset encoding)
         throws IOException {
         this.accountsFile = accountsFile;
+        this.encoding = encoding;
         if (accountsFile.exists()) {
             byte[] encoded = Files.readAllBytes(accountsFile.toPath());
             JSONObject obj = new JSONObject(new String(encoded, encoding));
@@ -98,7 +101,8 @@ public class DefaultCredentialsManager implements CredentialsManager {
         }
         obj.put("authenticationDatabase", authInfo);
         try (Writer writer = new BufferedWriter(
-            new FileWriter(this.accountsFile))) {
+            new OutputStreamWriter(new FileOutputStream(this.accountsFile),
+                this.encoding.newEncoder()))) {
             writer.write(obj.toString());
         }
     }
