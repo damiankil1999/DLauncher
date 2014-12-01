@@ -201,7 +201,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
             AuthorizationInfoImpl token = new AuthorizationInfoImpl(
                 obj.getString("accessToken"), true,
                 obj.getJSONObject("selectedProfile").getString("id"),
-                obj.getJSONObject("selectedProfile").getString("user"),
+                obj.getJSONObject("selectedProfile").getString("name"),
                 props.get("twitch_access_token"),
                 obj.getJSONObject("user").getString("id"),
                 account
