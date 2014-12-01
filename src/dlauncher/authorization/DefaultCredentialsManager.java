@@ -290,6 +290,19 @@ public class DefaultCredentialsManager implements CredentialsManager {
             return displayName;
         }
 
+        @Override
+        public String toString() {
+            return "AuthorizationInfoImpl{"
+                + "accessToken=" + accessToken
+                + ", valid=" + valid
+                + ", userid=" + userid
+                + ", uuid=" + uuid
+                + ", displayName=" + displayName
+                + ", twitchAccessToken=" + twitchAccessToken
+                + ", username=" + username
+                + '}';
+        }
+
         private AuthorizationInfoImpl refresh()
             throws IOException, AuthorizationException {
             this.valid = false;
