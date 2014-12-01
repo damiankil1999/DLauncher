@@ -7,10 +7,13 @@ package dlauncher.authorization;
 
 import dlauncher.cache.util.SizeLimitedByteArrayOutputStream;
 import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -35,6 +38,7 @@ import org.json.JSONObject;
 public class DefaultCredentialsManager implements CredentialsManager {
 
     private final String clientToken;
+    private final File accountsFile;
     private final List<AuthorizationInfoImpl> authDatabase = new ArrayList<>();
     private static final URL refresh;
     private static final URL validate;
@@ -54,6 +58,7 @@ public class DefaultCredentialsManager implements CredentialsManager {
 
     public DefaultCredentialsManager(File accountsFile, Charset encoding)
         throws IOException {
+        this.accountsFile = accountsFile;
         if (accountsFile.exists()) {
             byte[] encoded = Files.readAllBytes(accountsFile.toPath());
             JSONObject obj = new JSONObject(new String(encoded, encoding));
@@ -73,6 +78,28 @@ public class DefaultCredentialsManager implements CredentialsManager {
             }
         } else {
             this.clientToken = UUID.randomUUID().toString();
+        }
+    }
+
+    @Override
+    public void save() throws IOException {
+        JSONObject obj = new JSONObject();
+        obj.put("clientToken", this.clientToken);
+        JSONArray authInfo = new JSONArray();
+        for(AuthorizationInfoImpl token : authDatabase) {
+            JSONObject tokenObj = new JSONObject();
+            tokenObj.put("accessToken", token.getAccessToken());
+            tokenObj.put("uuid", token.getUuid());
+            tokenObj.put("displayName", token.getDisplayName());
+            tokenObj.put("twitch_acces_token", token.getTwitchAccesToken());
+            tokenObj.put("userid", token.getUserID());
+            tokenObj.put("username", token.getUsername());
+            authInfo.put(tokenObj);
+        }
+        obj.put("authenticationDatabase", authInfo);
+        try(Writer writer = new BufferedWriter(
+            new FileWriter(this.accountsFile))) {
+            writer.write(obj.toString());
         }
     }
 
