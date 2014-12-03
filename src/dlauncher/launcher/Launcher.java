@@ -88,14 +88,14 @@ public class Launcher extends javax.swing.JFrame {
         try {
             setTitle("DLauncher  - " + information.getVersion());
             Logger.getGlobal().log(Level.INFO, "Loading News...");
-            this.jEditorPane1.setPage(information.getNewsLink());
+            this.newsWebbrowser.setPage(information.getNewsLink());
             Logger.getGlobal().log(Level.INFO, "Succesfull!");
         } catch (IOException ex) {
             Logger.getGlobal().log(Level.WARNING, "FAILED:");
             Logger.getGlobal().log(Level.WARNING, "", ex);
         }
 
-        TimeTingys timet = new TimeTingys(jPasswordField1);
+        TimeTingys timet = new TimeTingys(accountPasswordField);
         timet.setup();
 
         jTextField3.setText(javaPath);
@@ -110,35 +110,35 @@ public class Launcher extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel4 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jEditorPane1 = new javax.swing.JEditorPane();
-        jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        footer = new javax.swing.JPanel();
+        footerLoginLabel = new javax.swing.JLabel();
+        mainGui = new javax.swing.JTabbedPane();
+        newsPane = new javax.swing.JPanel();
+        newsScrollPane = new javax.swing.JScrollPane();
+        newsWebbrowser = new javax.swing.JEditorPane();
+        modPackPane = new javax.swing.JPanel();
+        searchModPack = new javax.swing.JTextField();
+        searchModPackGo = new javax.swing.JButton();
+        modPackScrollPane = new javax.swing.JScrollPane();
         modPackContainer = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jButton6 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
+        accountPane = new javax.swing.JPanel();
+        accountCenterPane = new javax.swing.JPanel();
+        accountLoginLabel = new javax.swing.JLabel();
+        accountUserNameLabel = new javax.swing.JLabel();
+        accountUserNameField = new javax.swing.JTextField();
+        accountPasswordLabel = new javax.swing.JLabel();
+        accountPasswordField = new javax.swing.JPasswordField();
+        accountLoginButton = new javax.swing.JButton();
+        accountLogoutButton = new javax.swing.JButton();
+        accountStayLogin = new javax.swing.JCheckBox();
+        settingPane = new javax.swing.JTabbedPane();
+        settingPaneMcJava = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jPanel7 = new javax.swing.JPanel();
+        settingPaneTheme = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -152,200 +152,200 @@ public class Launcher extends javax.swing.JFrame {
         setTitle("DLauncher - OH NO SOMETHING WENT WRONG!");
         setForeground(java.awt.Color.lightGray);
 
-        jPanel1.setBackground(new java.awt.Color(45, 46, 49));
+        footer.setBackground(new java.awt.Color(45, 46, 49));
 
-        jLabel1.setForeground(new java.awt.Color(0, 204, 255));
-        jLabel1.setText("Please login in the Acount tab                                                                     ");
+        footerLoginLabel.setForeground(new java.awt.Color(0, 204, 255));
+        footerLoginLabel.setText("Please login in the Acount tab                                                                     ");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
+        footer.setLayout(footerLayout);
+        footerLayout.setHorizontalGroup(
+            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(footerLayout.createSequentialGroup()
                 .addContainerGap(260, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(footerLoginLabel)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        footerLayout.setVerticalGroup(
+            footerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(footerLayout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(jLabel1)
+                .addComponent(footerLoginLabel)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.setBackground(new java.awt.Color(68, 69, 70));
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTabbedPane1.setFont(new java.awt.Font("Britannic Bold", 1, 36)); // NOI18N
-        jTabbedPane1.setOpaque(true);
+        mainGui.setBackground(new java.awt.Color(68, 69, 70));
+        mainGui.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        mainGui.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        mainGui.setFont(new java.awt.Font("Britannic Bold", 1, 36)); // NOI18N
+        mainGui.setOpaque(true);
 
-        jPanel4.setBackground(new java.awt.Color(102, 107, 111));
+        newsPane.setBackground(new java.awt.Color(102, 107, 111));
 
-        jEditorPane1.setEditable(false);
-        jEditorPane1.setText("ERROR:\n\nCan't connect to the site\n\n" + 
+        newsWebbrowser.setEditable(false);
+        newsWebbrowser.setText("ERROR:\n\nCan't connect to the site\n\n" + 
             "Sorry for the inconvenience");
-        jEditorPane1.setMargin(new java.awt.Insets(-11, -11, -11, -11));
-        jScrollPane2.setViewportView(jEditorPane1);
+        newsWebbrowser.setMargin(new java.awt.Insets(-11, -11, -11, -11));
+        newsScrollPane.setViewportView(newsWebbrowser);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+        javax.swing.GroupLayout newsPaneLayout = new javax.swing.GroupLayout(newsPane);
+        newsPane.setLayout(newsPaneLayout);
+        newsPaneLayout.setHorizontalGroup(
+            newsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(newsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+        newsPaneLayout.setVerticalGroup(
+            newsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(newsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("News", jPanel4);
+        mainGui.addTab("News", newsPane);
 
-        jPanel2.setBackground(new java.awt.Color(102, 107, 111));
+        modPackPane.setBackground(new java.awt.Color(102, 107, 111));
 
-        jTextField1.setText("Search");
-        jTextField1.setToolTipText("Search for a ModPack");
+        searchModPack.setText("Search");
+        searchModPack.setToolTipText("Search for a ModPack");
 
-        jButton2.setBackground(new java.awt.Color(133, 135, 139));
-        jButton2.setText("Go!");
+        searchModPackGo.setBackground(new java.awt.Color(133, 135, 139));
+        searchModPackGo.setText("Go!");
 
-        jScrollPane3.setBackground(java.awt.Color.lightGray);
-        jScrollPane3.setAutoscrolls(true);
-        jScrollPane3.getVerticalScrollBar().setUnitIncrement(16);
+        modPackScrollPane.setBackground(java.awt.Color.lightGray);
+        modPackScrollPane.setAutoscrolls(true);
+        modPackScrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         modPackContainer.setBackground(java.awt.Color.gray);
         modPackContainer.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
-        jScrollPane3.setViewportView(modPackContainer);
+        modPackScrollPane.setViewportView(modPackContainer);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout modPackPaneLayout = new javax.swing.GroupLayout(modPackPane);
+        modPackPane.setLayout(modPackPaneLayout);
+        modPackPaneLayout.setHorizontalGroup(
+            modPackPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modPackPaneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchModPack, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(searchModPackGo)
                 .addContainerGap(245, Short.MAX_VALUE))
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+            .addComponent(modPackScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+        modPackPaneLayout.setVerticalGroup(
+            modPackPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(modPackPaneLayout.createSequentialGroup()
+                .addGroup(modPackPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchModPack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchModPackGo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
+                .addComponent(modPackScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Packs", null, jPanel2, "Display The Arivable ModPack's");
+        mainGui.addTab("Packs", null, modPackPane, "Display The Arivable ModPack's");
 
-        jPanel6.setBackground(new java.awt.Color(102, 107, 111));
-        jPanel6.setLayout(new java.awt.GridBagLayout());
+        accountPane.setBackground(new java.awt.Color(102, 107, 111));
+        accountPane.setLayout(new java.awt.GridBagLayout());
 
-        jPanel5.setBackground(new java.awt.Color(102, 107, 111));
+        accountCenterPane.setBackground(new java.awt.Color(102, 107, 111));
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Please log in with your premium minecraft account");
+        accountLoginLabel.setForeground(new java.awt.Color(255, 255, 255));
+        accountLoginLabel.setText("Please log in with your premium minecraft account");
 
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("E-Mail/username:");
+        accountUserNameLabel.setForeground(new java.awt.Color(255, 255, 255));
+        accountUserNameLabel.setText("E-Mail/username:");
 
-        jTextField2.setBackground(new java.awt.Color(115, 112, 112));
-        jTextField2.setForeground(new java.awt.Color(195, 192, 192));
-        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+        accountUserNameField.setBackground(new java.awt.Color(115, 112, 112));
+        accountUserNameField.setForeground(new java.awt.Color(195, 192, 192));
+        accountUserNameField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField2KeyTyped(evt);
+                accountUserNameFieldKeyTyped(evt);
             }
         });
 
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Password:");
+        accountPasswordLabel.setForeground(new java.awt.Color(255, 255, 255));
+        accountPasswordLabel.setText("Password:");
 
-        jPasswordField1.setBackground(new java.awt.Color(115, 112, 112));
-        jPasswordField1.setForeground(new java.awt.Color(195, 192, 192));
-        jPasswordField1.setEchoChar('?');
-        jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        accountPasswordField.setBackground(new java.awt.Color(115, 112, 112));
+        accountPasswordField.setForeground(new java.awt.Color(195, 192, 192));
+        accountPasswordField.setEchoChar('?');
+        accountPasswordField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jPasswordField1KeyTyped(evt);
+                accountPasswordFieldKeyTyped(evt);
             }
         });
 
-        jButton6.setBackground(new java.awt.Color(133, 135, 139));
-        jButton6.setText("Login");
-        jButton6.setToolTipText("Click here to login");
-        jButton6.setEnabled(false);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        accountLoginButton.setBackground(new java.awt.Color(133, 135, 139));
+        accountLoginButton.setText("Login");
+        accountLoginButton.setToolTipText("Click here to login");
+        accountLoginButton.setEnabled(false);
+        accountLoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                accountLoginButtonActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(133, 135, 139));
-        jButton1.setText("Logout");
-        jButton1.setEnabled(false);
+        accountLogoutButton.setBackground(new java.awt.Color(133, 135, 139));
+        accountLogoutButton.setText("Logout");
+        accountLogoutButton.setEnabled(false);
 
-        jCheckBox1.setText("Stay logged in.");
-        jCheckBox1.setEnabled(false);
+        accountStayLogin.setText("Stay logged in.");
+        accountStayLogin.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout accountCenterPaneLayout = new javax.swing.GroupLayout(accountCenterPane);
+        accountCenterPane.setLayout(accountCenterPaneLayout);
+        accountCenterPaneLayout.setHorizontalGroup(
+            accountCenterPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, accountCenterPaneLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(accountCenterPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(accountCenterPaneLayout.createSequentialGroup()
+                        .addGroup(accountCenterPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(accountUserNameLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, accountCenterPaneLayout.createSequentialGroup()
+                                .addComponent(accountPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(14, 14, 14)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField2)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(accountCenterPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(accountUserNameField)
+                            .addComponent(accountPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(accountCenterPaneLayout.createSequentialGroup()
                         .addGap(57, 57, 57)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                        .addGroup(accountCenterPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(accountLoginLabel)
+                            .addGroup(accountCenterPaneLayout.createSequentialGroup()
+                                .addComponent(accountLogoutButton)
                                 .addGap(18, 18, 18)
-                                .addComponent(jCheckBox1)
+                                .addComponent(accountStayLogin)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(accountLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(92, 92, 92))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+        accountCenterPaneLayout.setVerticalGroup(
+            accountCenterPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, accountCenterPaneLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel5)
+                .addComponent(accountLoginLabel)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(accountCenterPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(accountUserNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(accountUserNameLabel))
+                .addGroup(accountCenterPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(accountPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(accountPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton1)
-                    .addComponent(jCheckBox1))
+                .addGroup(accountCenterPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(accountLoginButton)
+                    .addComponent(accountLogoutButton)
+                    .addComponent(accountStayLogin))
                 .addGap(31, 31, 31))
         );
 
-        jPanel6.add(jPanel5, new java.awt.GridBagConstraints());
+        accountPane.add(accountCenterPane, new java.awt.GridBagConstraints());
 
-        jTabbedPane1.addTab("Acount", jPanel6);
+        mainGui.addTab("Acount", accountPane);
 
-        jTabbedPane2.setBackground(new java.awt.Color(102, 107, 111));
-        jTabbedPane2.setOpaque(true);
+        settingPane.setBackground(new java.awt.Color(102, 107, 111));
+        settingPane.setOpaque(true);
 
-        jPanel3.setBackground(java.awt.Color.gray);
+        settingPaneMcJava.setBackground(java.awt.Color.gray);
 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Java Path:");
@@ -369,45 +369,45 @@ public class Launcher extends javax.swing.JFrame {
         jTextField4.setBackground(new java.awt.Color(115, 112, 112));
         jTextField4.setForeground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout settingPaneMcJavaLayout = new javax.swing.GroupLayout(settingPaneMcJava);
+        settingPaneMcJava.setLayout(settingPaneMcJavaLayout);
+        settingPaneMcJavaLayout.setHorizontalGroup(
+            settingPaneMcJavaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingPaneMcJavaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(settingPaneMcJavaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(settingPaneMcJavaLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(settingPaneMcJavaLayout.createSequentialGroup()
                         .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addContainerGap())))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        settingPaneMcJavaLayout.setVerticalGroup(
+            settingPaneMcJavaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingPaneMcJavaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(settingPaneMcJavaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(settingPaneMcJavaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap(291, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("Minecraft/Java", null, jPanel3, "Change the settings of Minecraft");
+        settingPane.addTab("Minecraft/Java", null, settingPaneMcJava, "Change the settings of Minecraft");
 
-        jPanel7.setBackground(java.awt.Color.gray);
+        settingPaneTheme.setBackground(java.awt.Color.gray);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Select your theme!" }));
 
@@ -417,25 +417,25 @@ public class Launcher extends javax.swing.JFrame {
 
         jLabel8.setText("An Img that you cant see in Design");
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+        javax.swing.GroupLayout settingPaneThemeLayout = new javax.swing.GroupLayout(settingPaneTheme);
+        settingPaneTheme.setLayout(settingPaneThemeLayout);
+        settingPaneThemeLayout.setHorizontalGroup(
+            settingPaneThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, settingPaneThemeLayout.createSequentialGroup()
                 .addContainerGap(141, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(settingPaneThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
+                    .addGroup(settingPaneThemeLayout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(116, 116, 116))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
+        settingPaneThemeLayout.setVerticalGroup(
+            settingPaneThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(settingPaneThemeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(settingPaneThemeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(149, 149, 149)
@@ -443,26 +443,26 @@ public class Launcher extends javax.swing.JFrame {
                 .addContainerGap(162, Short.MAX_VALUE))
         );
 
-        jTabbedPane2.addTab("tab2", jPanel7);
+        settingPane.addTab("tab2", settingPaneTheme);
 
-        jTabbedPane1.addTab("Settings", jTabbedPane2);
+        mainGui.addTab("Settings", settingPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(footer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane1))
+                .addComponent(mainGui))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 383, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jTabbedPane1)
+                    .addComponent(mainGui)
                     .addGap(40, 40, 40)))
         );
 
@@ -470,38 +470,38 @@ public class Launcher extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-   private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+   private void accountLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountLoginButtonActionPerformed
        //login button
        login.setVisible(true);
 
-   }//GEN-LAST:event_jButton6ActionPerformed
+   }//GEN-LAST:event_accountLoginButtonActionPerformed
 
-   private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
-       if (jTextField2.getText().isEmpty()) {
-           jButton6.setEnabled(false);
+   private void accountUserNameFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_accountUserNameFieldKeyTyped
+       if (accountUserNameField.getText().isEmpty()) {
+           accountLoginButton.setEnabled(false);
        } else {
-           if (jPasswordField1.getPassword().length != 0) {
-               jButton6.setEnabled(true);
+           if (accountPasswordField.getPassword().length != 0) {
+               accountLoginButton.setEnabled(true);
            } else {
-               jButton6.setEnabled(false);
+               accountLoginButton.setEnabled(false);
            }
        }
-   }//GEN-LAST:event_jTextField2KeyTyped
+   }//GEN-LAST:event_accountUserNameFieldKeyTyped
 
-   private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped
-       if (jPasswordField1.getPassword().length == 0) {
-           jButton6.setEnabled(false);
+   private void accountPasswordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_accountPasswordFieldKeyTyped
+       if (accountPasswordField.getPassword().length == 0) {
+           accountLoginButton.setEnabled(false);
        } else {
-           if (!(jTextField2.getText().isEmpty())) {
-               jButton6.setEnabled(true);
+           if (!(accountUserNameField.getText().isEmpty())) {
+               accountLoginButton.setEnabled(true);
            } else {
-               jButton6.setEnabled(false);
+               accountLoginButton.setEnabled(false);
            }
        }
-   }//GEN-LAST:event_jPasswordField1KeyTyped
+   }//GEN-LAST:event_accountPasswordFieldKeyTyped
 
    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-       int returnVal = jFileChooser1.showOpenDialog(jPanel3);
+       int returnVal = jFileChooser1.showOpenDialog(settingPaneMcJava);
        if (returnVal == JFileChooser.APPROVE_OPTION) {
            jTextField3.setText(jFileChooser1.getSelectedFile().getPath());
        }
@@ -559,38 +559,38 @@ public class Launcher extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel accountCenterPane;
+    private javax.swing.JButton accountLoginButton;
+    private javax.swing.JLabel accountLoginLabel;
+    private javax.swing.JButton accountLogoutButton;
+    private javax.swing.JPanel accountPane;
+    private static javax.swing.JPasswordField accountPasswordField;
+    private javax.swing.JLabel accountPasswordLabel;
+    private javax.swing.JCheckBox accountStayLogin;
+    private javax.swing.JTextField accountUserNameField;
+    private javax.swing.JLabel accountUserNameLabel;
+    private javax.swing.JPanel footer;
+    private javax.swing.JLabel footerLoginLabel;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JFileChooser jFileChooser1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
-    private static javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private static javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTabbedPane mainGui;
     private javax.swing.JPanel modPackContainer;
+    private static javax.swing.JPanel modPackPane;
+    private javax.swing.JScrollPane modPackScrollPane;
+    private javax.swing.JPanel newsPane;
+    private javax.swing.JScrollPane newsScrollPane;
+    private javax.swing.JEditorPane newsWebbrowser;
+    private javax.swing.JTextField searchModPack;
+    private javax.swing.JButton searchModPackGo;
+    private javax.swing.JTabbedPane settingPane;
+    private javax.swing.JPanel settingPaneMcJava;
+    private javax.swing.JPanel settingPaneTheme;
     // End of variables declaration//GEN-END:variables
 }
