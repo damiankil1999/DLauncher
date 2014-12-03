@@ -61,6 +61,7 @@ public class ModpackGuiPanel extends javax.swing.JPanel {
         descriptionLabel = new javax.swing.JLabel();
         donateButton = new javax.swing.JButton();
         websiteButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
         authorLabel = new javax.swing.JLabel();
 
         setBackground(java.awt.Color.gray);
@@ -93,10 +94,15 @@ public class ModpackGuiPanel extends javax.swing.JPanel {
             }
         });
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setOpaque(true);
+
         authorLabel.setForeground(new java.awt.Color(255, 255, 255));
         authorLabel.setText("Author:");
         authorLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         authorLabel.setAutoscrolls(true);
+        authorLabel.setOpaque(true);
+        jScrollPane1.setViewportView(authorLabel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -112,9 +118,9 @@ public class ModpackGuiPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(websiteButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(authorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(iconLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
@@ -129,7 +135,8 @@ public class ModpackGuiPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(authorLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(nameLabel)
                         .addGap(18, 18, 18)
@@ -161,6 +168,7 @@ public class ModpackGuiPanel extends javax.swing.JPanel {
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JButton donateButton;
     private javax.swing.JLabel iconLabel;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JButton websiteButton;
     // End of variables declaration//GEN-END:variables
